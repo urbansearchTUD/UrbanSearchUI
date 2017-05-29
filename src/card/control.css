@@ -1,0 +1,16 @@
+.card--control {
+    position: fixed;
+    top: calc(65px + 25px);
+    right: 5px;
+    height: calc(48vh - 65px - 25px);
+    width: 300px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column; 
+}
+
+.card--control__cities {
+    overflow-y: auto;
+    height: 230px;
+    margin-top: 15px;
+}

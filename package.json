@@ -4,7 +4,7 @@
   "description": "This repository contains the code for the front end of the UrbanSearch Project",
   "main": "index.js",
   "scripts": {
-    "build": "",
+    "build": "npm run build:css && npm run build:js && npm run build:templates",
     "build:css": "node ./tasks/css.js",
     "build:js": "webpack",
     "build:templates": "node ./tasks/templates.js",

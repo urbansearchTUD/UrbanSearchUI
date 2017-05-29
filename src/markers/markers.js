@@ -9,23 +9,42 @@ const ICON = {
     strokeOpacity: .6
 }
 
-function createAll(map, cities) {
-    cities.forEach(city => {
-        create(map, city)
+function createAll(options) {
+    options.cities.forEach(city => {
+        create({
+            city: city,
+            map: options.map,
+            click: options.click,
+            dblclick: options.dblclick
+        })
     })
 }
 
-function create(map, city) {
-    ICON['scale'] = scale.sqrt(city.population)
+function create(options) {
+    const city = options.city
 
     const marker = new google.maps.Marker({
       position: {lat: city.lat, lng: city.lng},
-      map: map,
-      zIndex: 999,
-      icon: ICON
+      map: options.map,
+      icon: scaledIcon(options.city.population),
+      city: city
+    })
+
+    marker.addListener('click', () => {
+        options.click(marker)
+    })
+
+    marker.addListener('dblclick', () => {
+        options.dblclick(marker)
     })
 
     return marker
+}
+
+function scaledIcon(population) {
+    ICON.scale = scale.sqrt(city.population)
+
+    return ICON
 }
 
 module.exports = {

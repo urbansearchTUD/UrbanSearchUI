@@ -1,9 +1,9 @@
 const nunjucks = require('nunjucks')
 
-function createList(cities) {
+function createCityList(cities) {
     return nunjucks.render('card/citylist.html', {cities: cities})
 }
 
 module.exports = {
-    createList
+    createCityList
 }

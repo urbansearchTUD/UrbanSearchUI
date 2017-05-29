@@ -1,0 +1,14 @@
+.card--info {
+    position: fixed;
+    width: 300px;
+    right: 5px;
+    top: 50vh;
+}
+
+.card--table__info {
+    width: 100%;
+}
+
+.card--table__info td {
+    padding: 10px;
+}
