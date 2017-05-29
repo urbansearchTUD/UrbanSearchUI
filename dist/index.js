@@ -133,7 +133,7 @@ const nunjucks = __webpack_require__(4)
 const citylist_template = __webpack_require__(9)
 
 function createList(cities) {
-    console.log(citylist_template);
+    console.log(citylist_template)
     return citylist_template.render({username: cities})
 }
 
@@ -183,6 +183,12 @@ const ICON = {
     strokeOpacity: .6
 }
 
+function createAll(map, cities) {
+    cities.forEach(city => {
+        create(map, city)
+    })
+}
+
 function create(map, city) {
     ICON['scale'] = scale.sqrt(city.population)
 
@@ -197,7 +203,8 @@ function create(map, city) {
 }
 
 module.exports = {
-    create
+    create,
+    createAll
 }
 
 
@@ -7542,10 +7549,7 @@ fetch('/data/city_latlng.json')
         return response.json()
     })
     .then(cities => {
-        console.log(card.createList(cities));
-        cities.forEach(city => {
-            markers.create(googleMap, city)
-        })
+        markers.createAll(googleMap, cities)
     })
 
 

@@ -10,8 +10,5 @@ fetch('/data/city_latlng.json')
         return response.json()
     })
     .then(cities => {
-        console.log(card.createList(cities));
-        cities.forEach(city => {
-            markers.create(googleMap, city)
-        })
+        markers.createAll(googleMap, cities)
     })

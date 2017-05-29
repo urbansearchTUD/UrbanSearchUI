@@ -9,6 +9,12 @@ const ICON = {
     strokeOpacity: .6
 }
 
+function createAll(map, cities) {
+    cities.forEach(city => {
+        create(map, city)
+    })
+}
+
 function create(map, city) {
     ICON['scale'] = scale.sqrt(city.population)
 
@@ -23,5 +29,6 @@ function create(map, city) {
 }
 
 module.exports = {
-    create
+    create,
+    createAll
 }

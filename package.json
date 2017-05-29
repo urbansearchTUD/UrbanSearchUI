@@ -29,6 +29,7 @@
     "webpack": "^2.6.1"
   },
   "dependencies": {
+    "http-server": "^0.10.0",
     "nunjucks": "^3.0.1"
   }
 }
