@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 const paths = {
-    data: './src/data/*'
+    data: './data/*'
 }
 
 gulp.src(paths.data)
