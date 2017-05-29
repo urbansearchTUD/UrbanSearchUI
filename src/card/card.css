@@ -1,0 +1,52 @@
+.card {
+    background-color: #ffffff;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+.card:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.card > header {
+    border-bottom: 10px solid #a00037;
+    background-color: #d81b60;
+    padding: 15px 0;
+    text-align: center;
+    color: white;
+}
+
+.card p {
+    text-transform: capitalize;
+    text-align: center;
+    padding: 0 50px;
+}
+
+.card nav {
+    display: flex;
+    justify-content: center;
+    padding: 5px 0;
+}
+
+.card input {
+    width: 94%;
+    margin-left: 3%;
+    border: 0;
+    border-bottom: 1px solid #999;
+    padding: 10px 0;
+    font-size: medium;
+    transition: font 0.3s ease
+}
+
+.card input:focus {
+    font-size: small;
+}
+
+.card button {
+    background: transparent;
+    border: 0;
+    color: #00a6d6;
+    font-size: large;
+    cursor: pointer;
+}
