@@ -7,7 +7,7 @@ const paths = {
     templates: './src/**/*.html'
 }
 
-gulp.src(paths.templates)
+gulp.src([paths.templates, '!./src/**/index.html'])
     .pipe(nunjucks.precompile())
     .pipe(concat('templates.js'))
     .pipe(gulp.dest('./dist'));
