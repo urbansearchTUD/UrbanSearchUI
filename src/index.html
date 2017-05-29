@@ -2,16 +2,46 @@
 <html>
   <head>
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="/dist/index.css">
+    <link rel="stylesheet" href="/index.css">
   </head>
   <body>
     <header class="header--page">
         <h1>UrbanSearch</h1>
-        <img class="header--page__img" src="/front_end/images/tu-delft.svg" alt="TU Delft logo">
+        <img class="header--page__img" src="/static/tu-delft.svg" alt="TU Delft logo">
     </header>
     <main>
         <div id="map"></div>
     </main>
+    <!-- CONFIG CARD BEGIN -->
+    <section class="card card--control">
+        <header>
+            MAP CONTROLS
+        </header>
+        <nav>
+            <button>Cities</button>
+            <button>Relations</button>
+        </nav>
+        <form class="" action="index.html" method="post">
+            <input type="text" name="city-search" value="" placeholder="UrbanSearch">
+        </form>
+        <div class="card--control__cities" data-city-list>
+
+        </div>
+        <div class="card--control__relations">
+
+        </div>
+    </section>
+    <!-- CONFIG CARD END -->
+    <!-- INFO CARD BEGIN -->
+    <section class="card card--info" data-info-card>
+        <header>
+            Info
+        </header>
+        <div class="card--content card--info__content">
+
+        </div>
+    </section>
+    <!-- INFO CARD END -->
     <!-- <section class="card card--info">
         <div class="card--info__content">
 
@@ -35,114 +65,8 @@
 
         </div>
     </section> -->
-
-    <script>
-    const MARKERS = {}
-    var MAP;
-    function cities(map) {
-        fetch('/city_latlng.json')
-            .then((response) => {
-                return response.json();
-            })
-            .then((cities) => {
-                const city_list = document.querySelector('[data-city-list]');
-
-                cities.forEach((city) => {
-                    appendCityToList(city_list, city)
-                    MARKERS[city.city_name] = { marker: customMarker(map, city), neighbours: []}
-                    cities.forEach((neighbour) => {
-                        MARKERS[city.city_name].neighbours.push(flightPath)
-                        flightPath.setMap(map)
-						console.log(flightPath);
-                    })
-                })
-            })
-    }
-
-
-    function appendCityToList(list, city) {
-        let p = document.createElement("p")
-        p.innerText = city.city_name
-        list.appendChild(p);
-
-        p.addEventListener('click', (e) => {
-            if (!MARKERS[city.city_name].marker.getMap(MAP)) {
-                MARKERS[city.city_name].marker.setMap(MAP)
-                MARKERS[city.city_name].neighbours.forEach((neighbour) => {
-                    neighbour.setMap(MAP)
-                })
-            } else {
-                MARKERS[city.city_name].marker.setMap(null)
-                MARKERS[city.city_name].neighbours.forEach((neighbour) => {
-                    neighbour.setMap(null)
-                })
-            }
-
-        })
-    }
-
-    function customMarker(map, city) {
-        const m = new google.maps.Marker({
-          position: {lat: city.lat, lng: city.lng},
-          map: map,
-          zIndex: 999,
-          icon: {
-            path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
-            fillColor: '#d81b60',
-            fillOpacity: Math.random(),
-            anchor: new google.maps.Point(0,0),
-            strokeWeight: 1,
-            strokeColor: '#FFFFFF',
-            strokeOpacity: Math.random(),
-            scale: Math.sqrt(scale(city.population))
-          }
-        });
-
-		m.addListener('mouseover', (e) => {
-			MARKERS[city.city_name].neighbours.forEach((neighbour) => {
-				neighbour.setVisible(true)
-			})
-		})
-
-		m.addListener('mouseout', (e) => {
-			MARKERS[city.city_name].neighbours.forEach((neighbour) => {
-				neighbour.setVisible(false)
-			})
-		})
-
-		return m
-    }
-
-    function scale(value, options) {
-        RANGE = 850000 - 45000
-        return value/RANGE
-    }
-
-      var map;
-      function initMap() {
-        var icon = {
-          path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
-          fillColor: '#d81b60',
-          fillOpacity: .6,
-          anchor: new google.maps.Point(0,0),
-          strokeWeight: 1,
-          strokeColor: '#a00037',
-          strokeOpacity: .6
-        }
-        map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 7,
-          center: {lat: 51.98799603, lng: 5.922999562},
-          styles: styles,
-          mapTypeControl: false,
-          streetViewControl: false,
-          fullscreenControl: false
-        });
-        MAP = map
-        cities(map)
-      }
-    </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvg8p9qiY0WMg_LpHO6-PvZWlDyEbPGOw&callback=initMap">
-    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvg8p9qiY0WMg_LpHO6-PvZWlDyEbPGOw"></script>
+    <script type="text/javascript" src="/templates.js"></script>
+    <script type="text/javascript" src="/index.js"></script>
   </body>
 </html>

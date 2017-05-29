@@ -4,10 +4,12 @@
   "description": "This repository contains the code for the front end of the UrbanSearch Project",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build:css && npm run build:js && npm run build:templates && npm run build:data",
+    "build": "npm run build:css && npm run build:js && npm run build:templates && npm run build:data && npm run build:html && npm run build:static",
     "build:css": "node ./tasks/css.js",
     "build:data": "rimraf .dist/data/ && node ./tasks/data.js",
+    "build:html": "node ./tasks/html.js",
     "build:js": "webpack",
+    "build:static": "rimraf .dist/static/ && node ./tasks/static.js",
     "build:templates": "node ./tasks/templates.js",
     "start": "cd dist/ && http-server",
     "test": "echo \"Error: no test specified\" && exit 1"

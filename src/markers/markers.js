@@ -42,7 +42,7 @@ function create(options) {
 }
 
 function scaledIcon(population) {
-    ICON.scale = scale.sqrt(city.population)
+    ICON.scale = scale.sqrt(population)
 
     return ICON
 }
