@@ -4,8 +4,9 @@
   "description": "This repository contains the code for the front end of the UrbanSearch Project",
   "main": "index.js",
   "scripts": {
-    "build": "npm run build:css && npm run build:js && npm run build:templates",
+    "build": "npm run build:css && npm run build:js && npm run build:templates && npm run build:data",
     "build:css": "node ./tasks/css.js",
+    "build:data": "rimraf .dist/data/ && node ./tasks/data.js",
     "build:js": "webpack",
     "build:templates": "node ./tasks/templates.js",
     "start": "cd dist/ && http-server",
@@ -27,6 +28,7 @@
     "gulp-nunjucks": "^3.0.0",
     "gulp-rename": "^1.2.2",
     "nodemon": "^1.11.0",
+    "rimraf": "^2.6.1",
     "webpack": "^2.6.1"
   },
   "dependencies": {
