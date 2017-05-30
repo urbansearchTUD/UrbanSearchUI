@@ -12,7 +12,7 @@ function markerInfo(marker) {
     console.log('marker info', marker)
 
     const html = nunjucks.render('card/markerinfo.html', { data : {
-        city: marker.city.city_name,
+        city: marker.city.name,
         population: marker.city.population
     } })
 

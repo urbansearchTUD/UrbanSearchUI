@@ -1,5 +1,5 @@
 <ul class="card--list__cities">
-    {% for city in cities | sort(false, true, 'city_name') %}
-    <li data-city-name="{{city.city_name}}">{{city.city_name | capitalize}}</li>
+    {% for city in cities | sort(false, true, 'name') %}
+    <li data-city-name="{{city.name}}">{{city.name}}</li>
     {% endfor %}
 </ul>

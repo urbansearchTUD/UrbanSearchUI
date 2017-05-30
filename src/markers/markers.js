@@ -1,19 +1,11 @@
 const scale = require('../scale/scale')
-const ICON = {
-    path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
-    fillColor: '#d81b60',
-    fillOpacity: .6,
-    anchor: new google.maps.Point(0,0),
-    strokeWeight: 1,
-    strokeColor: '#a00037',
-    strokeOpacity: .6
-}
+const ICON_URL = '/static/circle.svg'
 
 function createAll(options) {
     const cityMakerMap = {}
 
     options.cities.forEach(city => {
-        cityMakerMap[city.city_name] = create({
+        cityMakerMap[city.name] = create({
             city: city,
             map: options.map,
             click: options.click,
@@ -28,10 +20,11 @@ function create(options) {
     const city = options.city
 
     const marker = new google.maps.Marker({
-      position: {lat: city.lat, lng: city.lng},
-      map: options.map,
-      icon: scaledIcon(options.city.population),
-      city: city
+        position: {lat: city.latitude, lng: city.longitude},
+        map: options.map,
+        icon: scaledIcon(city.population),
+        opacity: .6,
+        city: city
     })
 
     marker.addListener('click', () => {
@@ -46,9 +39,12 @@ function create(options) {
 }
 
 function scaledIcon(population) {
-    ICON.scale = scale.sqrt(population)
-
-    return ICON
+    let size = Math.max(50 * scale.sqrt(population), 10)
+    return {
+        url: ICON_URL,
+        scaledSize: new google.maps.Size(size, size),
+        anchor: new google.maps.Point(.5 * size, .5 * size)
+    }
 }
 
 module.exports = {
