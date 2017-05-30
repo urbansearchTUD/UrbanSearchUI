@@ -10,14 +10,18 @@ const ICON = {
 }
 
 function createAll(options) {
+    const cityMakerMap = {}
+
     options.cities.forEach(city => {
-        create({
+        cityMakerMap[city.city_name] = create({
             city: city,
             map: options.map,
             click: options.click,
             dblclick: options.dblclick
         })
     })
+
+    return cityMakerMap
 }
 
 function create(options) {

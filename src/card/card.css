@@ -10,7 +10,7 @@
 }
 
 .card > header {
-    border-bottom: 10px solid #a00037;
+    border-bottom: 5px solid #a00037;
     background-color: #d81b60;
     padding: 15px 0;
     text-align: center;
@@ -36,7 +36,8 @@
     border-bottom: 1px solid #999;
     padding: 10px 0;
     font-size: medium;
-    transition: font 0.3s ease
+    transition: font 0.3s ease;
+    text-align: center;
 }
 
 .card input:focus {
@@ -49,4 +50,15 @@
     color: #00a6d6;
     font-size: large;
     cursor: pointer;
+    text-decoration: underline;
+}
+
+.card--list__cities {
+    list-style-type: none;
+    padding: 0;
+}
+
+.card--list__cities li{
+    text-align: center;
+    padding: 5px 0;
 }

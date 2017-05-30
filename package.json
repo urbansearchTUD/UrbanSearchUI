@@ -11,7 +11,7 @@
     "build:js": "webpack",
     "build:static": "rimraf .dist/static/ && node ./tasks/static.js",
     "build:templates": "node ./tasks/templates.js",
-    "start": "cd dist/ && http-server",
+    "start": "cd ./dist/ && http-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -6,9 +6,16 @@ const infocard = require('../card/info')
 // const relations = require('../relations/relations')
 
 const googleMap = map.initMap('map')
+var MARKERS = null;
+
+function cityClick(e, city) {
+    console.log('city: ', city);
+    const marker = MARKERS[city]
+    console.log('marker:', marker);
+    marker.getVisible() ? marker.setVisible(false) : marker.setVisible(true)
+}
 
 function markerClick(marker) {
-    console.log('marker clicked');
     infocard.markerInfo(marker)
 }
 
@@ -21,8 +28,8 @@ fetch('/data/city_latlng.json')
         return response.json()
     })
     .then(cities => {
-        controlcard.initCityList(cities)
-        markers.createAll({
+        controlcard.initCityList({cities, click: cityClick})
+        MARKERS = markers.createAll({
             'map': googleMap,
             'cities': cities,
             'click': markerClick,

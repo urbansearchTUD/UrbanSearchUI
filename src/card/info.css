@@ -11,4 +11,5 @@
 
 .card--table__info td {
     padding: 10px;
+    text-transform: capitalize;
 }
