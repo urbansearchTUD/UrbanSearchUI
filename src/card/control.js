@@ -17,7 +17,20 @@ function initCityList(options) {
     }
 }
 
+function filterCityList(min, max) {
+    for (let element of CITY_LIST.querySelectorAll('li')) {
+        let pop = parseInt(element.getAttribute('data-city-pop'))
+        if (pop < min || pop > max) {
+            element.style.display = 'none'
+            console.log('hiding!')
+        } else {
+            element.style.display = 'list-item'
+        }
+    }
+}
+
 module.exports = {
     createCityList,
-    initCityList
+    initCityList,
+    filterCityList
 }

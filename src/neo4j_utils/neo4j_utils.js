@@ -11,7 +11,7 @@ const CITY_QUERY = {
                 + "RETURN id(n) AS id, n.name AS name, "
                 + "n.latitude AS latitude, n.longitude AS longitude, "
                 + "n.population AS population "
-                + "ORDER BY n.name LIMIT 10"
+                + "ORDER BY n.name"
   } ]
 }
 

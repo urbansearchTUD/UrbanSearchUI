@@ -25,6 +25,18 @@ function markerDblClick(marker) {
     console.log('marker dblclicked');
 }
 
+function popSliderUpdate(values) {
+    for (let key of Object.keys(MARKERS)) {
+        if (values[0] > MARKERS[key].city.population ||
+            values[1] < MARKERS[key].city.population) {
+            MARKERS[key].setVisible(false)
+        } else {
+            MARKERS[key].setVisible(true)
+        }
+    }
+    controlcard.filterCityList(values[0], values[1])
+}
+
 neo4jutils.getCities()
     .then(cities => {
         controlcard.initCityList({cities, click: cityClick})
@@ -35,8 +47,10 @@ neo4jutils.getCities()
             'dblclick': markerDblClick
         })
     })
-
-slider.createPopulationSlider()
+    .then(e => {
+        // Must happen after MARKER filling
+        slider.createPopulationSlider({'callback': popSliderUpdate})
+    })
 
 // fetch('/data/city_latlng.json')
 //     .then(response => {

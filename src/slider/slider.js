@@ -7,13 +7,12 @@ const POP_SLIDER = document.querySelector('.slider--content')
 const POP_MIN = document.querySelector('#slider--population__min')
 const POP_MAX = document.querySelector('#slider--population__max')
 
-function adjustPopulation(values) {
-    console.log('New values: ' + values[0] + ' ' + values[1])
+function adjustPopulationText(values) {
     POP_MIN.innerHTML = parseInt(values[0])
     POP_MAX.innerHTML = parseInt(values[1])
 }
 
-function createPopulationSlider() {
+function createPopulationSlider(options) {
     slider.create(POP_SLIDER, {
         start: [10000, MAX - 200000],
         behaviour: 'tap',
@@ -33,7 +32,10 @@ function createPopulationSlider() {
     	POP_SLIDER.querySelector('upper-value')
     ]
 
-    POP_SLIDER.noUiSlider.on('update', adjustPopulation)
+    POP_SLIDER.noUiSlider.on('update', (e) => {
+        options.callback(e)
+        adjustPopulationText(e)
+    })
 }
 
 module.exports = {
