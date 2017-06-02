@@ -3,6 +3,7 @@ const markers = require('../markers/markers')
 const card = require('../card/card')
 const controlcard = require('../card/control')
 const infocard = require('../card/info')
+const slider = require('../slider/slider')
 const neo4jutils = require('../neo4j_utils/neo4j_utils')
 const relations = require('../relations/relations')
 
@@ -46,6 +47,8 @@ neo4jutils.getICRelations().then(icRels => {
         'click': relationClick
     })
 })
+
+slider.createPopulationSlider()
 
 // fetch('/data/city_latlng.json')
 //     .then(response => {

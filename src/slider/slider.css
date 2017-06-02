@@ -1,0 +1,14 @@
+.slider p {
+    color: gray;
+    font-size: 10pt;
+    text-transform: none;
+}
+
+.slider--content {
+    width: 80%;
+    margin: 25px auto 5px auto;
+}
+
+.slider .noUi-connect {
+    background-color: #00a6d6;
+}
