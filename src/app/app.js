@@ -29,6 +29,18 @@ function markerDblClick(marker) {
     console.log('marker dblclicked');
 }
 
+function popSliderUpdate(values) {
+    for (let key of Object.keys(MARKERS)) {
+        if (values[0] > MARKERS[key].city.population ||
+            values[1] < MARKERS[key].city.population) {
+            MARKERS[key].setVisible(false)
+        } else {
+            MARKERS[key].setVisible(true)
+        }
+    }
+    controlcard.filterCityListByRange(values[0], values[1])
+}
+
 neo4jutils.getCities().then(cities => {
     controlcard.initCityList({cities, click: cityClick})
     MARKERS = markers.createAll({
@@ -37,7 +49,9 @@ neo4jutils.getCities().then(cities => {
         'click': markerClick,
         'dblclick': markerDblClick
     })
-    return cities
+}).then(e => {
+    // Must happen after MARKER filling
+    slider.createPopulationSlider({'callback': popSliderUpdate})
 })
 
 neo4jutils.getICRelations().then(icRels => {

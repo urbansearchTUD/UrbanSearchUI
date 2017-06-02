@@ -32,7 +32,20 @@ function filterCityListByName(name) {
     }
 }
 
+function filterCityListByRange(min, max) {
+    for (let element of CITY_LIST.querySelectorAll('li')) {
+        let pop = parseInt(element.getAttribute('data-city-pop'))
+        if (pop < min || pop > max) {
+            element.classList.add('card--list__hidden')
+        } else {
+            element.classList.remove('card--list__hidden')
+        }
+    }
+}
+
 module.exports = {
     createCityList,
-    initCityList
+    initCityList,
+    filterCityListByName,
+    filterCityListByRange
 }
