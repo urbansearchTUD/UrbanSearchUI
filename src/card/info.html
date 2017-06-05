@@ -1,0 +1,8 @@
+<table class="card--table__info">
+    {% for key, value in data %}
+    <tr>
+        <td class="table--info__key">{{key}}</td>
+        <td>{{value.name if value.name else value}}</td>
+    </tr>
+    {% endfor %}
+</table>
