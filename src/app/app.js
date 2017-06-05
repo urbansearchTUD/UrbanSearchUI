@@ -4,7 +4,7 @@ const card = require('../card/card')
 const controlcard = require('../card/control')
 const infocard = require('../card/info')
 const neo4jutils = require('../neo4j_utils/neo4j_utils')
-// const relations = require('../relations/relations')
+const relations = require('../relations/relations')
 
 const googleMap = map.initMap('map')
 var MARKERS = null;
@@ -20,20 +20,32 @@ function markerClick(marker) {
     infocard.markerInfo(marker)
 }
 
+function relationClick(relation) {
+    infocard.relationInfo(relation)
+}
+
 function markerDblClick(marker) {
     console.log('marker dblclicked');
 }
 
-neo4jutils.getCities()
-    .then(cities => {
-        controlcard.initCityList({cities, click: cityClick})
-        MARKERS = markers.createAll({
-            'map': googleMap,
-            'cities': cities,
-            'click': markerClick,
-            'dblclick': markerDblClick
-        })
+neo4jutils.getCities().then(cities => {
+    controlcard.initCityList({cities, click: cityClick})
+    MARKERS = markers.createAll({
+        'map': googleMap,
+        'cities': cities,
+        'click': markerClick,
+        'dblclick': markerDblClick
     })
+    return cities
+})
+
+neo4jutils.getICRelations().then(icRels => {
+    relations.createAll({
+        'map': googleMap,
+        'relations': icRels,
+        'click': relationClick
+    })
+})
 
 // fetch('/data/city_latlng.json')
 //     .then(response => {

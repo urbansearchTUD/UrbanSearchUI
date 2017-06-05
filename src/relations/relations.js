@@ -1,34 +1,51 @@
-function relation(from, to) {
-    if (from.city_name === to.city_name) {
+const LINE_OPTS = {
+    // geodesic: true,
+    strokeColor: '#F8BBD0',
+    strokeOpacity: 1,
+    strokeWeight: 4,
+    zindex: 5
+}
+
+function createAll(options) {
+    options.relations.forEach(rel => {
+        create(options.map, options.click, rel)
+    })
+}
+
+function addInfoWindow(path, cityA, cityB) {
+    let infoWindow = new google.maps.InfoWindow({
+        content: cityA + ' - ' + cityB
+    })
+
+    path.addListener('mouseover', (e) => {
+        // Move window slightly up to allow for clicking the relation
+        infoWindow.setPosition({
+            'lat': e.latLng.lat() + 0.02,
+            'lng': e.latLng.lng()
+        })
+        infoWindow.open(map, path)
+    })
+
+    path.addListener('mouseout', () => infoWindow.close())
+}
+
+function create(map, click, rel) {
+    if (rel.from.name === rel.to.name) {
+        console.log('should never happen!')
         return
     }
 
-    let path = [
-        {lat: from.lat, lng: from.lng},
-        {lat: to.lat, lng: to.lng}
+    LINE_OPTS['path'] = [
+        {lat: rel.from.lat, lng: rel.from.lng},
+        {lat: rel.to.lat, lng: rel.to.lng}
     ]
 
-    let flightPath = new google.maps.Polyline({
-        path: path,
-        geodesic: true,
-        strokeColor: '#f8bbd0',
-        strokeOpacity: 1.0,
-        strokeWeight: Math.random() * 4,
-        visible: false,
-        zIndex: 3
-    })
+    let flightPath = new google.maps.Polyline(LINE_OPTS)
+    flightPath.setMap(map)
+    flightPath.addListener('click', () => click(rel))
+    addInfoWindow(flightPath, rel.from.name, rel.to.name)
+}
 
-    let infoWindow = new google.maps.InfoWindow({
-        content: '' + from.city_name.capitalize() + ' - '
-            + to.city_name.capitalize()
-    })
-
-    flightPath.addListener('mouseover', (e) => {
-        infoWindow.setPosition(e.latLng)
-        infoWindow.open(map, flightPath);
-    })
-
-    flightPath.addListener('mouseout', (e) => {
-        infoWindow.close();
-    })
+module.exports = {
+    createAll
 }
