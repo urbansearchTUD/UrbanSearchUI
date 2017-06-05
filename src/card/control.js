@@ -24,7 +24,11 @@ function initCityList(options) {
 function filterCityListByName(name) {
     for (let element of CITY_LIST.querySelectorAll('li')) {
         let cityName = element.getAttribute('data-city-name').toUpperCase()
-        element.style.display = cityName.includes(name) ? 'list-item' : 'none'
+        if (cityName.includes(name)) {
+            element.classList.remove('card--list__hidden')
+        } else {
+            element.classList.add('card--list__hidden')
+        }
     }
 }
 

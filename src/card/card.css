@@ -62,3 +62,7 @@
     text-align: center;
     padding: 5px 0;
 }
+
+.card--list__hidden {
+    display: none;
+}
