@@ -1,5 +1,7 @@
 <ul class="card--list__cities">
     {% for city in cities | sort(false, true, 'name') %}
-    <li data-city-name="{{city.name}}">{{city.name}}</li>
+    <li data-city-name="{{city.name}}" data-city-pop="{{city.population}}">
+        {{city.name}}
+    </li>
     {% endfor %}
 </ul>

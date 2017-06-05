@@ -28,11 +28,24 @@ function filterCityListByName(name) {
             element.classList.remove('card--list__hidden')
         } else {
             element.classList.add('card--list__hidden')
+    }
+}
+
+function filterCityListByPopulation(min, max) {
+    for (let element of CITY_LIST.querySelectorAll('li')) {
+        let pop = parseInt(element.getAttribute('data-city-pop'))
+        if (pop < min || pop > max) {
+            element.style.display = 'none'
+            console.log('hiding!')
+        } else {
+            element.style.display = 'list-item'
         }
     }
 }
 
 module.exports = {
     createCityList,
-    initCityList
+    initCityList,
+    filterCityListByName,
+    filterCityListByPopulation
 }
