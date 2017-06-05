@@ -5,7 +5,7 @@ function createAll(options) {
     const cityMakerMap = {}
 
     options.cities.forEach(city => {
-        cityMakerMap[city.name] = create({
+        cityMakerMap[city.id] = create({
             city: city,
             map: options.map,
             click: options.click,

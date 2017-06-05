@@ -25,14 +25,10 @@ function markerDblClick(marker) {
     console.log('marker dblclicked');
 }
 
-function popSliderUpdate(values) {
-    for (let key of Object.keys(MARKERS)) {
-        if (values[0] > MARKERS[key].city.population ||
-            values[1] < MARKERS[key].city.population) {
-            MARKERS[key].setVisible(false)
-        } else {
-            MARKERS[key].setVisible(true)
-        }
+function popSliderUpdate(range) {
+    for (let id of Object.keys(MARKERS)) {
+        let visible = slider.inRange(MARKERS[id].city.population, range)
+        MARKERS[id].setVisible(visible)
     }
     controlcard.filterCityList(values[0], values[1])
 }
