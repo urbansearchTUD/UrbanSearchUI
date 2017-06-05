@@ -10,6 +10,10 @@
 }
 
 .card--table__info td {
-    padding: 10px;
+    padding: 5px;
     text-transform: capitalize;
+}
+
+.table--info__key {
+    font-weight: lighter;
 }

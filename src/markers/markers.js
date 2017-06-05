@@ -18,7 +18,6 @@ function createAll(options) {
 
 function create(options) {
     const city = options.city
-
     const marker = new google.maps.Marker({
         position: {lat: city.latitude, lng: city.longitude},
         map: options.map,
@@ -27,13 +26,8 @@ function create(options) {
         city: city
     })
 
-    marker.addListener('click', () => {
-        options.click(marker)
-    })
-
-    marker.addListener('dblclick', () => {
-        options.dblclick(marker)
-    })
+    marker.addListener('click', () => options.click(marker))
+    marker.addListener('dblclick', () => options.dblclick(marker))
 
     return marker
 }
