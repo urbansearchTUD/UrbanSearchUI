@@ -5,8 +5,14 @@
     top: 50vh;
 }
 
+.card--info__content {
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
 .card--table__info {
     width: 100%;
+    height: 100%;
 }
 
 .card--table__info td {
