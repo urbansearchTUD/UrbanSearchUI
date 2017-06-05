@@ -12,6 +12,10 @@ function adjustPopulationText(values) {
     POP_MAX.innerHTML = parseInt(values[1])
 }
 
+function inRange(value, range) {
+    return value >= range[0] && value <= range[1]
+}
+
 function createPopulationSlider(options) {
     slider.create(POP_SLIDER, {
         start: [10000, MAX - 200000],
@@ -21,8 +25,8 @@ function createPopulationSlider(options) {
             min: [MIN, 250],
             '5%': [1000, 1000],
             '30%': [10000, 5000],
-            '45%': [25000, 25000],
-            '60%': [100000, 100000],
+            '50%': [25000, 25000],
+            '70%': [100000, 100000],
             max: [MAX]
         }
     })
@@ -32,12 +36,11 @@ function createPopulationSlider(options) {
     	POP_SLIDER.querySelector('upper-value')
     ]
 
-    POP_SLIDER.noUiSlider.on('update', (e) => {
-        options.callback(e)
-        adjustPopulationText(e)
-    })
+    POP_SLIDER.noUiSlider.on('end', (e) => options.callback(e))
+    POP_SLIDER.noUiSlider.on('update', (e) => adjustPopulationText(e))
 }
 
 module.exports = {
-    createPopulationSlider
+    createPopulationSlider,
+    inRange
 }
