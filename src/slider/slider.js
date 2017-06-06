@@ -18,7 +18,7 @@ function inRange(value, range) {
 
 function createPopulationSlider(options) {
     slider.create(POP_SLIDER, {
-        start: [10000, MAX - 200000],
+        start: [options.minPop, options.maxPop],
         behaviour: 'tap',
         connect: true,
         range: {

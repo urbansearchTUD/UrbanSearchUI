@@ -8,6 +8,8 @@ const neo4jutils = require('../neo4j_utils/neo4j_utils')
 const relations = require('../relations/relations')
 
 const googleMap = map.initMap('map')
+const INITIAL_MIN = 10000
+const INITIAL_MAX = 800000
 var MARKERS = null;
 
 function cityClick(e, city) {
@@ -43,11 +45,17 @@ neo4jutils.getCities().then(cities => {
         'map': googleMap,
         'cities': cities,
         'click': markerClick,
-        'dblclick': markerDblClick
+        'dblclick': markerDblClick,
+        'minPop': INITIAL_MIN,
+        'maxPop': INITIAL_MAX
     })
 }).then(e => {
     // Must happen after MARKER filling
-    slider.createPopulationSlider({'callback': popSliderUpdate})
+    slider.createPopulationSlider({
+        'callback': popSliderUpdate,
+        'minPop': INITIAL_MIN,
+        'maxPop': INITIAL_MAX
+    })
 })
 
 neo4jutils.getICRelations().then(icRels => {
