@@ -39,7 +39,12 @@ function popSliderUpdate(range) {
 }
 
 neo4jutils.getCities().then(cities => {
-    controlcard.initCityList({cities, click: cityClick})
+    controlcard.initCityList({
+        'cities': cities,
+        'click': cityClick,
+        'minPop': INITIAL_POP_RANGE[0],
+        'maxPop': INITIAL_POP_RANGE[1]
+    })
     MARKERS = markers.createAll({
         'map': googleMap,
         'cities': cities,

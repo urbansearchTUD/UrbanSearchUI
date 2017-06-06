@@ -18,28 +18,30 @@ function initCityList(options) {
             console.log('city clicked');
             options.click(e, e.target.getAttribute('data-city-name'))
         })
+        let pop = element.getAttribute('data-city-pop')
+        setVisibility(element, pop < options.minPop || pop > options.maxPop)
     }
 }
 
 function filterCityListByName(name) {
     for (let element of CITY_LIST.querySelectorAll('li')) {
         let cityName = element.getAttribute('data-city-name').toUpperCase()
-        if (cityName.includes(name)) {
-            element.classList.remove('card--list__hidden')
-        } else {
-            element.classList.add('card--list__hidden')
-        }
+        setVisibility(element, cityName.includes(name))
     }
 }
 
 function filterCityListByRange(min, max) {
     for (let element of CITY_LIST.querySelectorAll('li')) {
         let pop = parseInt(element.getAttribute('data-city-pop'))
-        if (pop < min || pop > max) {
-            element.classList.add('card--list__hidden')
-        } else {
-            element.classList.remove('card--list__hidden')
-        }
+        setVisibility(element, pop < min || pop > max)
+    }
+}
+
+function setVisibility(element, visibility) {
+    if (visibility) {
+        element.classList.add('card--list__hidden')
+    } else {
+        element.classList.remove('card--list__hidden')
     }
 }
 
