@@ -34,7 +34,7 @@ function popSliderUpdate(range) {
         let visible = slider.inRange(MARKERS[id].city.population, range)
         MARKERS[id].setVisible(visible)
     }
-    controlcard.filterCityListByRange(values[0], values[1])
+    controlcard.filterCityListByRange(range[0], range[1])
 }
 
 neo4jutils.getCities().then(cities => {
@@ -57,8 +57,6 @@ neo4jutils.getICRelations().then(icRels => {
         'click': relationClick
     })
 })
-
-slider.createPopulationSlider()
 
 // fetch('/data/city_latlng.json')
 //     .then(response => {
