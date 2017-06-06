@@ -9,7 +9,9 @@ function createAll(options) {
             city: city,
             map: options.map,
             click: options.click,
-            dblclick: options.dblclick
+            dblclick: options.dblclick,
+            minPop: options.minPop,
+            maxPop: options.maxPop
         })
     })
 
@@ -18,12 +20,15 @@ function createAll(options) {
 
 function create(options) {
     const city = options.city
+    const min = options.minPop
+    const max = options.maxPop
     const marker = new google.maps.Marker({
         position: {lat: city.latitude, lng: city.longitude},
         map: options.map,
         icon: scaledIcon(city.population),
         opacity: .6,
-        city: city
+        city: city,
+        visible: city.population >= min && city.population <= max
     })
 
     marker.addListener('click', () => options.click(marker))

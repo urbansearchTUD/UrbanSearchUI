@@ -6,7 +6,7 @@
 }
 
 .card--info__content {
-    max-height: 40vh;
+    max-height: 25vh;
     overflow-y: auto;
 }
 

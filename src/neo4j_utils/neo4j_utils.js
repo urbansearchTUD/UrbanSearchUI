@@ -11,19 +11,18 @@ const REL_CATEGORIES = [
 ]
 const CITY_QUERY = {
     "statements" : [{
-        "statement" : "MATCH (n:City) WHERE n.name='Amsterdam' OR n.name='Rotterdam' "
+        "statement" : "MATCH (n:City) "
                     + "RETURN id(n) AS id, n.name AS name, "
                     + "n.latitude AS latitude, n.longitude AS longitude, "
                     + "n.population AS population "
-                    + "ORDER BY n.name LIMIT 10"
+                    + "ORDER BY n.name"
     }]
 }
 const REL_QUERY = {
     "statements": [{
         "statement" : "MATCH (a:City)-[r:RELATES_TO]->(b:City) "
                     + "RETURN a.name, a.latitude, a.longitude, "
-                    + "b.name, b.latitude, b.longitude, PROPERTIES(r) "
-                    + "LIMIT 10"
+                    + "b.name, b.latitude, b.longitude, PROPERTIES(r)"
     }]
 }
 
