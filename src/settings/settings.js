@@ -1,7 +1,4 @@
-function create() {
-    console.log('in settings')
-}
+const settingcard = require('../card/setting')
+const settings = require('./settings.json')
 
-module.exports = {
-    create
-}
+document.querySelector('.settings').innerHTML = settingcard.createSettingCards(settings.settings)

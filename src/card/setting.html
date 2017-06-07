@@ -1,0 +1,29 @@
+<div class="mdc-card">
+    <section class="mdc-card__primary">
+        <h1 class="mdc-card__title mdc-card__title--large">{{ setting.category | upper }}</h1>
+        <h2 class="mdc-card__subtitle">{{ setting.subcategory | upper }}</h2>
+    </section>
+    <section class="mdc-card__supporting-text">
+        {{ setting.description }}
+    </section>
+    <section class="mdc-card__actions">
+    {% if setting.widget == 'number' %}
+        <input class="setting-widget setting-input mdc-button mdc-button--compact mdc-card__action" type="number" min="{{setting.min_value}}" max="{{setting.max_value}}">
+    {% elif setting.widget == 'select' %}
+        <select class="setting-widget setting-select mdc-button mdc-button--compact mdc-card__action">
+            {% for option in setting.options %}
+                <option>{{ option }}</option>
+            {% endfor %}
+        </select>
+    {% elif setting.widget == 'multi-select' %}
+        <select multiple="multiple" class="setting-widget setting-select-multiple mdc-button mdc-button--compact mdc-card__action">
+            {% for option in setting.options %}
+                <option>{{ option }}</option>
+            {% endfor %}
+        </select>
+    {% else %}
+        <input class="setting-widget setting-input mdc-button mdc-button--compact mdc-card__action" type="text">
+    {% endif %}
+        <button class="mdc-button mdc-button--compact mdc-card__action" onclick="{{setting.callback}}">Apply</button>
+    </section>
+</div>

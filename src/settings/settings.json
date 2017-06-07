@@ -1,0 +1,46 @@
+{
+    "settings": [
+        {
+            "category": "logging",
+            "subcategory": "level",
+            "description": "Adjust this setting to alter the amount of logging.",
+            "widget": "select",
+            "options": ["NONE", "DEBUG", "INFO", "WARN", "ERROR", "CRITITCAL"]
+        },
+        {
+            "category": "gathering",
+            "subcategory": "CommonCrawl",
+            "description": "Adjust this setting to change the name of the CommonCrawl dataset to be used."
+        },
+        {
+            "category": "categories",
+            "subcategory": "type",
+            "description": "Adjust this setting to change the categories the system uses. Beware: applying any changes made here takes a long time!",
+            "widget": "multi-select",
+            "options": ["commuting", "transportation", "moving"]
+        },
+        {
+            "category": "categories",
+            "subcategory": "threshold",
+            "description": "Change this setting to adjust the minimum probability for a document to be labeled as a certain category. Any probability below this threshold is labeled as 'other'. The value should lie between 0 and 1.",
+            "widget": "number",
+            "min_value": 0,
+            "max_value": 1
+        },
+        {
+            "category": "export",
+            "subcategory": "file format",
+            "description": "Change this setting to adjust the file format of intercity relation exports.",
+            "widget": "select",
+            "options": ["csv", "excel"]
+        },
+        {
+            "category": "relations",
+            "subcategory": "threshold",
+            "description": "Adjust this setting to alter the default minimal strength of intercity relations, measured as the total number of co-occurrences.",
+            "widget": "number",
+            "min_value": 0,
+            "max_value": 1
+        }
+    ]
+}
