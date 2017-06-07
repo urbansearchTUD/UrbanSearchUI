@@ -14,44 +14,11 @@
 {% endblock %}
 
 {% block sections %}
-<!-- CONFIG CARD BEGIN -->
-    <section class="card card--control">
-        <header>
-            MAP CONTROLS
-        </header>
-        <nav>
-            <button>Cities</button>
-            <button>Relations</button>
-        </nav>
-        <div class="slider slider--population">
-            <div class="noUiSlider slider--content slider--population__content">
-
-            </div>
-            <p class="slider--population__info">Population range:</p>
-            <p>
-                <span id="slider--population__min"></span> -
-                <span id="slider--population__max"></span>
-            </p>
-        </div>
-        <input type="text" name="city-search" value="" placeholder="UrbanSearch" autocomplete="off">
-        <div class="card--control__cities" data-city-list>
-
-        </div>
-        <div class="card--control__relations">
-
-        </div>
-    </section>
+    <!-- CONFIG CARD BEGIN -->
+    {% include 'card/control.html' %}
     <!-- CONFIG CARD END -->
     <!-- INFO CARD BEGIN -->
-    <section class="card card--info" data-info-card hidden>
-        <header>
-            INFO
-        </header>
-        <div class="card--content card--info__content">
-
-        </div>
-        <button class="card--button card--button__close" type="button" data-info-button-close>Close</button>
-    </section>
+    {% include 'card/info.html' %}
     <!-- INFO CARD END -->
 {% endblock %}
 
