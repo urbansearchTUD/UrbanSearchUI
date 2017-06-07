@@ -1,19 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="//cdnjs.cloudflare.com/ajax/libs/noUiSlider/10.0.0/nouislider.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/index.css">
-  </head>
-  <body>
+{% extends 'base.html' %}
+
+{% block title %}Index{% endblock %}
+
+{% block header %}
     <header class="header--page">
         <h1>UrbanSearch</h1>
-        <img class="header--page__img" src="/static/tu-delft.svg" alt="TU Delft logo">
+        <img class="header--page__img" src="/img/tu-delft.svg" alt="TU Delft logo">
     </header>
-    <main>
-        <div id="map"></div>
-    </main>
-    <!-- CONFIG CARD BEGIN -->
+{% endblock %}
+
+{% block main %}
+    <div id="map"></div>
+{% endblock %}
+
+{% block sections %}
+<!-- CONFIG CARD BEGIN -->
     <section class="card card--control">
         <header>
             MAP CONTROLS
@@ -52,32 +53,10 @@
         <button class="card--button card--button__close" type="button" data-info-button-close>Close</button>
     </section>
     <!-- INFO CARD END -->
+{% endblock %}
 
-    <!-- <section class="card card--info">
-        <div class="card--info__content">
-
-        </div>
-    </section>
-    <section class="card card--control">
-        <header>
-            MAP CONTROLS
-        </header>
-        <nav>
-            <button>Cities</button>
-            <button>Relations</button>
-        </nav>
-        <form class="" action="index.html" method="post">
-            <input type="text" name="city-search" value="" placeholder="UrbanSearch">
-        </form>
-        <div class="card--control__cities" data-city-list>
-
-        </div>
-        <div class="card--control__relations">
-
-        </div>
-    </section> -->
+{% block scripts %}
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvg8p9qiY0WMg_LpHO6-PvZWlDyEbPGOw"></script>
-    <script type="text/javascript" src="/templates.js"></script>
-    <script type="text/javascript" src="/index.js"></script>
-  </body>
-</html>
+    <script type="text/javascript" src="/js/templates.js"></script>
+    <script type="text/javascript" src="/js/index.bundle.js"></script>
+{% endblock %}

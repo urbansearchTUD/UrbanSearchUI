@@ -6,4 +6,4 @@ const paths = {
 
 gulp.src(paths.css)
     .pipe(concat('index.css'))
-    .pipe(gulp.dest('./dist'))
+    .pipe(gulp.dest('./dist/css/'))

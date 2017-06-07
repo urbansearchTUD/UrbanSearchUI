@@ -2,16 +2,15 @@
   "name": "urbansearchui",
   "version": "1.0.0",
   "description": "This repository contains the code for the front end of the UrbanSearch Project",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "build": "npm run build:css && npm run build:js && npm run build:templates && npm run build:data && npm run build:html && npm run build:static",
+    "build": "npm run build:css && npm run build:js && npm run build:templates && npm run build:data && npm run build:static",
     "build:css": "node ./tasks/css.js",
     "build:data": "rimraf .dist/data/ && node ./tasks/data.js",
-    "build:html": "node ./tasks/html.js",
     "build:js": "webpack",
     "build:static": "rimraf .dist/static/ && node ./tasks/static.js",
     "build:templates": "node ./tasks/templates.js",
-    "start": "cd ./dist/ && http-server",
+    "start": "npm run build && node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -34,7 +33,7 @@
     "webpack": "^2.6.1"
   },
   "dependencies": {
-    "http-server": "^0.10.0",
+    "express": "^4.15.3",
     "nouislider": "^10.0.0",
     "nunjucks": "^3.0.1"
   }
