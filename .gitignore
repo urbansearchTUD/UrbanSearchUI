@@ -59,3 +59,6 @@ typings/
 
 # dist directory
 dist/
+
+# private settings
+config_private.json
