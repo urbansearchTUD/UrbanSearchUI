@@ -10,4 +10,4 @@ const paths = {
 gulp.src([paths.templates, '!./src/**/index.html'])
     .pipe(nunjucks.precompile())
     .pipe(concat('templates.js'))
-    .pipe(gulp.dest('./dist'));
+    .pipe(gulp.dest('./dist/js/'));

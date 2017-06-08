@@ -1,5 +1,5 @@
 const scale = require('../scale/scale')
-const ICON_URL = '/static/circle.svg'
+const ICON_URL = '/img/circle.svg'
 
 function createAll(options) {
     const cityMakerMap = {}

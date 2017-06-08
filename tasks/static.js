@@ -1,7 +1,7 @@
 const gulp = require('gulp');
 const paths = {
-    data: './static/*'
+    img: './static/img/*'
 }
 
-gulp.src(paths.data)
-    .pipe(gulp.dest('./dist/static/'))
+gulp.src(paths.img)
+    .pipe(gulp.dest('./dist/img/'))
