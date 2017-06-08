@@ -8,7 +8,6 @@ const neo4jutils = require('../neo4j_utils/neo4j_utils')
 const relations = require('../relations/relations')
 
 const googleMap = map.initMap('map')
-const INITIAL_POP_RANGE = [10000, 800000]
 var MARKERS = null;
 
 function cityClick(e, city) {
@@ -42,23 +41,17 @@ neo4jutils.getCities().then(cities => {
     controlcard.initCityList({
         'cities': cities,
         'click': cityClick,
-        'minPop': INITIAL_POP_RANGE[0],
-        'maxPop': INITIAL_POP_RANGE[1]
     })
     MARKERS = markers.createAll({
         'map': googleMap,
         'cities': cities,
         'click': markerClick,
         'dblclick': markerDblClick,
-        'minPop': INITIAL_POP_RANGE[0],
-        'maxPop': INITIAL_POP_RANGE[1]
     })
 }).then(e => {
     // Must happen after MARKER filling
     slider.createPopulationSlider({
         'callback': popSliderUpdate,
-        'minPop': INITIAL_POP_RANGE[0],
-        'maxPop': INITIAL_POP_RANGE[1]
     })
 })
 

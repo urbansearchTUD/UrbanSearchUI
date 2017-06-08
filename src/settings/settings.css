@@ -3,13 +3,13 @@ body {
 }
 
 main {
-    background-color: #EEE;
 }
 
 .settings {
     display: flex;
     justify-content: space-around;
     flex-flow: row wrap;
+    background-color: #EEE;
 }
 
 .mdc-card {
@@ -23,13 +23,19 @@ main {
 .setting-widget {
     border-style: solid;
     border-width: thin;
+    width: 50%;
+    text-transform: none;
 }
 
-.setting-select .setting-select-multiple {
+.setting-select {
     -webkit-appearance: menulist;
 }
 
 .setting-select-multiple {
     overflow-y: auto;
     -webkit-appearance: scrollbarbutton-up;
+}
+
+.warn {
+    color: rgb(253, 143, 37);
 }

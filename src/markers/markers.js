@@ -1,4 +1,5 @@
 const scale = require('../scale/scale')
+const config = require('../../config')
 const ICON_URL = '/img/circle.svg'
 
 function createAll(options) {
@@ -10,8 +11,8 @@ function createAll(options) {
             map: options.map,
             click: options.click,
             dblclick: options.dblclick,
-            minPop: options.minPop,
-            maxPop: options.maxPop
+            minPop: config.get('popslider_start')[0],
+            maxPop: config.get('popslider_start')[1]
         })
     })
 

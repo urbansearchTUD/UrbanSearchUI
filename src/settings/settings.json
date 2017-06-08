@@ -5,19 +5,34 @@
             "subcategory": "level",
             "description": "Adjust this setting to alter the amount of logging.",
             "widget": "select",
-            "options": ["NONE", "DEBUG", "INFO", "WARN", "ERROR", "CRITITCAL"]
+            "options": ["NONE", "DEBUG", "INFO", "WARN", "ERROR", "CRITITCAL"],
+            "default": "WARN",
+            "config_key": "loglevel"
         },
         {
             "category": "gathering",
             "subcategory": "CommonCrawl",
-            "description": "Adjust this setting to change the name of the CommonCrawl dataset to be used."
+            "description": "Adjust this setting to change the name of the CommonCrawl dataset to be used. Must equal any of the index names listed here: http://index.commoncrawl.org",
+            "default": "CC-MAIN-2017-17-index",
+            "config_key": "cc_index"
+        },
+        {
+            "category": "gathering",
+            "subcategory": "update",
+            "description": "Click the update button to process all pages from the specified index.",
+            "warning": "this may take as long as a couple of weeks!",
+            "apply_text": "update"
         },
         {
             "category": "categories",
             "subcategory": "type",
-            "description": "Adjust this setting to change the categories the system uses. Beware: applying any changes made here takes a long time!",
+            "description": "Adjust this setting to change the categories the system uses.",
+            "warning": "applying any changes made here takes a long time!",
             "widget": "multi-select",
-            "options": ["commuting", "transportation", "moving"]
+            "options": [],
+            "config_key": "rel_categories",
+            "load_options": true,
+            "config_options_key": "rel_categories_selected"
         },
         {
             "category": "categories",
@@ -25,14 +40,18 @@
             "description": "Change this setting to adjust the minimum probability for a document to be labeled as a certain category. Any probability below this threshold is labeled as 'other'. The value should lie between 0 and 1.",
             "widget": "number",
             "min_value": 0,
-            "max_value": 1
+            "max_value": 1,
+            "default": 0.4,
+            "config_key": "label_threshold"
         },
         {
             "category": "export",
             "subcategory": "file format",
             "description": "Change this setting to adjust the file format of intercity relation exports.",
             "widget": "select",
-            "options": ["csv", "excel"]
+            "options": ["csv", "excel"],
+            "default": "csv",
+            "config_key": "export_format"
         },
         {
             "category": "relations",
@@ -40,7 +59,8 @@
             "description": "Adjust this setting to alter the default minimal strength of intercity relations, measured as the total number of co-occurrences.",
             "widget": "number",
             "min_value": 0,
-            "max_value": 1
+            "default": 250,
+            "config_key": "min_strength"
         }
     ]
 }

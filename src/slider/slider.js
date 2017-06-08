@@ -1,7 +1,5 @@
 const slider = require('nouislider')
-
-const MAX = 1000000
-const MIN = 750
+const config = require('../../config')
 
 const POP_SLIDER = document.querySelector('.slider--content')
 const POP_MIN = document.querySelector('#slider--population__min')
@@ -18,17 +16,10 @@ function inRange(value, range) {
 
 function createPopulationSlider(options) {
     slider.create(POP_SLIDER, {
-        start: [options.minPop, options.maxPop],
+        start: config.get('popslider_start'),
         behaviour: 'tap',
         connect: true,
-        range: {
-            min: [MIN, 250],
-            '5%': [1000, 1000],
-            '30%': [10000, 5000],
-            '50%': [25000, 25000],
-            '70%': [100000, 100000],
-            max: [MAX]
-        }
+        range: config.get('popslider_range')
     })
 
     const nodes = [

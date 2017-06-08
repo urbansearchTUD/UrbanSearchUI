@@ -1,4 +1,5 @@
 const nunjucks = require('nunjucks')
+const config = require('../../config')
 
 const CITY_LIST = document.querySelector('[data-city-list]')
 
@@ -19,7 +20,9 @@ function initCityList(options) {
             options.click(e, e.target.getAttribute('data-city-name'))
         })
         let pop = element.getAttribute('data-city-pop')
-        setVisibility(element, pop < options.minPop || pop > options.maxPop)
+        let minPop = config.get('popslider_start')[0]
+        let maxPop = config.get('popslider_start')[1]
+        setVisibility(element, pop < minPop || pop > maxPop)
     }
 }
 
