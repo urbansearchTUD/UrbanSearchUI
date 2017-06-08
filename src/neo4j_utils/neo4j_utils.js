@@ -21,8 +21,8 @@ const CITY_QUERY = {
 const REL_QUERY = {
     "statements": [{
         "statement" : "MATCH (a:City)-[r:RELATES_TO]->(b:City) "
-                    + "RETURN a.name, a.latitude, a.longitude, "
-                    + "b.name, b.latitude, b.longitude, PROPERTIES(r)"
+                    + "RETURN ID(a), a.name, a.latitude, a.longitude, "
+                    + "ID(b), b.name, b.latitude, b.longitude, PROPERTIES(r)"
     }]
 }
 
@@ -86,17 +86,19 @@ function parseICRelationResponse(neo4jResponse) {
     neo4jResponse.results[0].data.forEach(rel => {
         relation = {}
         relation['from'] = {
-            'name': rel.row[0],
-            'lat': rel.row[1],
-            'lng': rel.row[2]
+            'id': rel.row[0],
+            'name': rel.row[1],
+            'lat': rel.row[2],
+            'lng': rel.row[3]
         }
         relation['to'] = {
-            'name': rel.row[3],
-            'lat': rel.row[4],
-            'lng': rel.row[5]
+            'id': rel.row[4],
+            'name': rel.row[5],
+            'lat': rel.row[6],
+            'lng': rel.row[7]
         }
         REL_CATEGORIES.forEach(cat => {
-            relation[cat] = parseInt(rel.row[6][cat])
+            relation[cat] = parseInt(rel.row[8][cat])
         })
         console.log(relation)
         relations.push(relation)

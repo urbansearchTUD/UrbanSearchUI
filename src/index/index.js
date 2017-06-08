@@ -11,11 +11,9 @@ const googleMap = map.initMap('map')
 const INITIAL_POP_RANGE = [10000, 800000]
 var MARKERS = null;
 
-function cityClick(e, city) {
-    console.log('city: ', city);
-    const marker = MARKERS[city]
-    console.log('marker:', marker);
-    marker.getVisible() ? marker.setVisible(false) : marker.setVisible(true)
+function cityClick(cityId) {
+    const marker = MARKERS[cityId]
+    marker.setVisible(!marker.getVisible())
 }
 
 function markerClick(marker) {
@@ -53,20 +51,21 @@ neo4jutils.getCities().then(cities => {
         'minPop': INITIAL_POP_RANGE[0],
         'maxPop': INITIAL_POP_RANGE[1]
     })
-}).then(e => {
+}).then(() => {
     // Must happen after MARKER filling
     slider.createPopulationSlider({
         'callback': popSliderUpdate,
         'minPop': INITIAL_POP_RANGE[0],
         'maxPop': INITIAL_POP_RANGE[1]
     })
-})
-
-neo4jutils.getICRelations().then(icRels => {
-    relations.createAll({
-        'map': googleMap,
-        'relations': icRels,
-        'click': relationClick
+}).then(() => {
+    neo4jutils.getICRelations().then(icRels => {
+        relations.createAll({
+            'map': googleMap,
+            'markers': MARKERS,
+            'relations': icRels,
+            'click': relationClick
+        })
     })
 })
 
