@@ -1,14 +1,16 @@
-const API_URL = "http://149.210.244.63:7474/db/data/transaction/commit/"
+const config = require('../../config')
+
+const API_URL = config.get('neo4j_api_url')
+const NEO4J_CREDS = config.get('neo4j_api_creds')
+const REL_CATEGORIES = config.get('rel_categories_selected')
+
 const HEADERS = new Headers({
-    "Authorization": "Basic " + btoa("urbansearch:ur4ns34rch1s33n31ndpr0j3ct"),
+    "Authorization": "Basic " + btoa(NEO4J_CREDS.user + ":" + NEO4J_CREDS.passwd),
     "Content-Type": "application/json",
     "Accept": "application/json"
 })
 const CITY_COLUMNS = ['id', 'name', 'latitude', 'longitude', 'population']
-const REL_CATEGORIES = [
-    'education', 'commuting', 'moving', 'shopping', 'leisure', 'collaboration',
-    'transportation', 'other'
-]
+
 const CITY_QUERY = {
     "statements" : [{
         "statement" : "MATCH (n:City) "
@@ -98,7 +100,7 @@ function parseICRelationResponse(neo4jResponse) {
         REL_CATEGORIES.forEach(cat => {
             relation[cat] = parseInt(rel.row[6][cat])
         })
-        console.log(relation)
+
         relations.push(relation)
     })
 

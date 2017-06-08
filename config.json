@@ -17,7 +17,12 @@
         "rel_categories": ["commuting", "shopping", "leisure", "moving", "education", "collaboration", "transportation", "other"],
         "rel_categories_selected": ["commuting", "shopping", "leisure", "moving", "education", "collaboration", "transportation", "other"],
         "export_format": "csv",
-        "cc_index": "CC-MAIN-2017-17-index"
+        "cc_index": "CC-MAIN-2017-17-index",
+        "neo4j_api_url": "http://149.210.244.63:7474/db/data/transaction/commit/",
+        "neo4j_api_creds": {
+            "user": "urbansearch",
+            "passwd": "ur4ns34rch1s33n31ndpr0j3ct"
+        }
     },
     "custom": {}
 }
