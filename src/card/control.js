@@ -1,10 +1,11 @@
 const nunjucks = require('nunjucks')
-const config = require('../../config')
+const slider = require('../slider/slider')
 
 const CITY_LIST = document.querySelector('[data-city-list]')
+const CITY_SEARCH = document.querySelector('[name="city-search"]')
 
-document.querySelector('[name="city-search"]').addEventListener('input', (e) => {
-    filterCityListByName(e.target.value.toUpperCase())
+CITY_SEARCH.addEventListener('input', (e) => {
+    filterCityList(e.target.value.toUpperCase())
 })
 
 function createCityList(cities) {
@@ -18,38 +19,45 @@ function initCityList(options) {
         element.addEventListener('click', (e) => {
             options.click(e.target.getAttribute('data-city-id'))
         })
-        let pop = element.getAttribute('data-city-pop')
-        let minPop = config.get('popslider_start')[0]
-        let maxPop = config.get('popslider_start')[1]
-        setVisibility(element, pop < minPop || pop > maxPop)
     }
 }
 
-function filterCityListByName(name) {
-    for (let element of CITY_LIST.querySelectorAll('li')) {
-        let cityName = element.getAttribute('data-city-name').toUpperCase()
-        setVisibility(element, cityName.includes(name))
+function filterCityList(name, range) {
+    if (!name) {
+        name = CITY_SEARCH.value.toUpperCase()
+    }
+    if (!range) {
+        range = slider.getRange()
+    }
+    for (let el of CITY_LIST.querySelectorAll('li')) {
+        setVisibility(el, checkRange(el, range) && checkName(el, name))
     }
 }
 
-function filterCityListByRange(min, max) {
-    for (let element of CITY_LIST.querySelectorAll('li')) {
+function checkRange(element, range) {
         let pop = parseInt(element.getAttribute('data-city-pop'))
-        setVisibility(element, pop < min || pop > max)
-    }
+        return pop >= range[0] && pop <= range[1]
+}
+
+function checkName(element, name) {
+    let cityName = element.getAttribute('data-city-name').toUpperCase()
+    return cityName.includes(name)
 }
 
 function setVisibility(element, visibility) {
-    if (visibility) {
+    if (!visibility) {
         element.classList.add('card--list__hidden')
     } else {
         element.classList.remove('card--list__hidden')
     }
 }
 
+function isVisible(element) {
+    return !element.contains('card--list__hidden')
+}
+
 module.exports = {
     createCityList,
     initCityList,
-    filterCityListByName,
-    filterCityListByRange
+    filterCityList
 }

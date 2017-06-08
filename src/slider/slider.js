@@ -22,16 +22,16 @@ function createPopulationSlider(options) {
         range: config.get('popslider_range')
     })
 
-    const nodes = [
-    	POP_SLIDER.querySelector('lower-value'),
-    	POP_SLIDER.querySelector('upper-value')
-    ]
-
     POP_SLIDER.noUiSlider.on('end', (e) => options.callback(e))
     POP_SLIDER.noUiSlider.on('update', (e) => adjustPopulationText(e))
 }
 
+function getRange() {
+    return POP_SLIDER.noUiSlider.get()
+}
+
 module.exports = {
     createPopulationSlider,
-    inRange
+    inRange,
+    getRange
 }
