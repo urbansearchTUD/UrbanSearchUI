@@ -1,0 +1,3 @@
+{% for setting in settings | sort(false, true, 'category') %}
+    {% include 'card/setting.html' %}
+{% endfor %}

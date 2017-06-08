@@ -1,0 +1,41 @@
+body {
+    width: 100%;
+}
+
+main {
+}
+
+.settings {
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    background-color: #EEE;
+}
+
+.mdc-card {
+    background-color: #FFF;
+    width: 30vw;
+    margin: 15px;
+    min-width: 400px;
+    justify-content: space-between;
+}
+
+.setting-widget {
+    border-style: solid;
+    border-width: thin;
+    width: 50%;
+    text-transform: none;
+}
+
+.setting-select {
+    -webkit-appearance: menulist;
+}
+
+.setting-select-multiple {
+    overflow-y: auto;
+    -webkit-appearance: scrollbarbutton-up;
+}
+
+.warn {
+    color: rgb(253, 143, 37);
+}
