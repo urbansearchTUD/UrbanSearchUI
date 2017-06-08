@@ -16,8 +16,7 @@ function initCityList(options) {
 
     for (let element of CITY_LIST.querySelectorAll('li')) {
         element.addEventListener('click', (e) => {
-            console.log('city clicked');
-            options.click(e, e.target.getAttribute('data-city-name'))
+            options.click(e.target.getAttribute('data-city-id'))
         })
         let pop = element.getAttribute('data-city-pop')
         let minPop = config.get('popslider_start')[0]

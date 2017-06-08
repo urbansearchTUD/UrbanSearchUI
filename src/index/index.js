@@ -10,11 +10,9 @@ const relations = require('../relations/relations')
 const googleMap = map.initMap('map')
 var MARKERS = null;
 
-function cityClick(e, city) {
-    console.log('city: ', city);
-    const marker = MARKERS[city]
-    console.log('marker:', marker);
-    marker.getVisible() ? marker.setVisible(false) : marker.setVisible(true)
+function cityClick(cityId) {
+    const marker = MARKERS[cityId]
+    marker.setVisible(!marker.getVisible())
 }
 
 function markerClick(marker) {
@@ -48,18 +46,19 @@ neo4jutils.getCities().then(cities => {
         'click': markerClick,
         'dblclick': markerDblClick,
     })
-}).then(e => {
+}).then(() => {
     // Must happen after MARKER filling
     slider.createPopulationSlider({
         'callback': popSliderUpdate,
     })
-})
-
-neo4jutils.getICRelations().then(icRels => {
-    relations.createAll({
-        'map': googleMap,
-        'relations': icRels,
-        'click': relationClick
+}).then(() => {
+    neo4jutils.getICRelations().then(icRels => {
+        relations.createAll({
+            'map': googleMap,
+            'markers': MARKERS,
+            'relations': icRels,
+            'click': relationClick
+        })
     })
 })
 
