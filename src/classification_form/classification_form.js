@@ -80,14 +80,11 @@ function submit(form) {
     const document = EL.pre.textContent
     const categories = []
 
-    Array.prototype.forEach.call(
-        EL.category_buttons,
-        (el) => {
-            if(el.classList.contains('selected')) {
-                categories.push(el.value);
-            }
+    EL.category_buttons.forEach((el) => {
+        if(el.classList.contains('selected')) {
+            categories.push(el.value);
         }
-    )
+    })
 
     if(categories.length) {
         classifyDocument({document, categories})
