@@ -25,7 +25,6 @@ Bij veel families waarin de ziekte voorkomt, is er geen mutatie gevonden in de d
 `
 
 router.get('/', (req, res) => {
-
     res.render('classify/classify', {
         categories: config.get('rel_categories'),
         document: test_doc

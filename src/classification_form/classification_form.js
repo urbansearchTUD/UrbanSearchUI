@@ -19,8 +19,8 @@ function classifyDocument(data) {
     .then(() => {
         return getDocument()
     })
-    .then((document) => {
-        EL.form.querySelector('pre').textContent = document
+    .then((doc) => {
+        EL.form.querySelector('pre').textContent = doc
         resetCategoryButtons()
     })
     .catch((err) => {
@@ -55,8 +55,8 @@ function init(form) {
     EL.discard.onclick = (e) => {
         resetCategoryButtons()
         getDocument(form)
-        .then((document) => {
-            form.querySelector('pre').textContent = document
+        .then((doc) => {
+            form.querySelector('pre').textContent = doc
         })
     }
 
@@ -77,7 +77,7 @@ function resetCategoryButtons() {
 }
 
 function submit(form) {
-    const document = EL.pre.textContent
+    const doc = EL.pre.textContent
     const categories = []
 
     EL.category_buttons.forEach((el) => {
@@ -87,7 +87,7 @@ function submit(form) {
     })
 
     if(categories.length) {
-        classifyDocument({document, categories})
+        classifyDocument({document: doc, categories})
     }
 }
 
