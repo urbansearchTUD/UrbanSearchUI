@@ -1,0 +1,103 @@
+.form-classification {
+    width: 80vw;
+    height: 80vh;
+    overflow: hidden;
+    margin: auto;
+    margin-top: 15px;
+    background-color: #fff;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    box-sizing: border-box;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-classification:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.form-classification pre{
+    font-family: sans-serif;
+    white-space: pre-wrap;
+    height: 70%;
+    overflow-y: auto;
+    background-color: #F5F5F5;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    padding: 5px;
+}
+
+.form-classification div.controls--form{
+    height: 40%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.controls--select {
+    height: 100%;
+    width: 40%;
+    font-size: larger;
+    border: 0;
+    background-color: #F8F8FF;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+
+/*.controls--select:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}*/
+
+.button {
+    border: 0;
+    background-color: #d81b60;
+    padding: 10px 15px;
+    color: #fff;
+    border-radius: 2px;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    /* flex-grow: 1; */
+    font-size: small;
+    margin: 0 17px;
+    align-self: center;
+}
+
+.button:hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.button:active {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    background-color: #a00037;
+}
+
+.button--category {
+    width: 47%;
+    align-self: flex-start;
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    border: 0;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    margin: 0 0 10px 0;
+    padding: 10px 0;
+    color: #00a6d6;
+    border-radius: 2px;
+}
+
+.button--category.selected {
+    background-color: #00a6d6;
+    color: white;
+}
+
+.button_list--categories {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    flex-wrap: wrap;
+    flex-grow: 2;
+}
+
+.controls--form__api_buttons {
+    display: flex;
+}
