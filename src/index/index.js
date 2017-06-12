@@ -32,25 +32,28 @@ function popSliderUpdate(range) {
         let visible = slider.inRange(MARKERS[id].city.population, range)
         MARKERS[id].setVisible(visible)
     }
-    controlcard.filterCityListByRange(range[0], range[1])
+    controlcard.filterCityList(null, range)
 }
 
 neo4jutils.getCities().then(cities => {
-    controlcard.initCityList({
-        'cities': cities,
-        'click': cityClick,
-    })
     MARKERS = markers.createAll({
         'map': googleMap,
         'cities': cities,
         'click': markerClick,
         'dblclick': markerDblClick,
     })
+    return cities
+}).then((cities) => {
+    controlcard.initCityList({
+        'cities': cities,
+        'click': cityClick,
+    })
 }).then(() => {
-    // Must happen after MARKER filling
+    // Must happen after MARKER filling and city list creation
     slider.createPopulationSlider({
         'callback': popSliderUpdate,
     })
+    controlcard.filterCityList()
 }).then(() => {
     neo4jutils.getICRelations().then(icRels => {
         relations.createAll({
