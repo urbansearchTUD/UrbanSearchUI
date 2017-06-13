@@ -54,9 +54,9 @@ function init(form) {
 
     EL.discard.onclick = (e) => {
         resetCategoryButtons()
-        getDocument(form)
+        getDocument()
         .then((doc) => {
-            form.querySelector('pre').textContent = doc
+            EL.pre.textContent = doc
         })
     }
 
