@@ -42,10 +42,8 @@ function getDocument() {
 }
 
 function init(form) {
-    EL.form = form
-    EL.discard = form.querySelector('[data-discard-document]')
-    EL.pre = form.querySelector('pre')
-    EL.category_buttons = form.querySelectorAll('.button--category')
+    initElements(form)
+    refreshArticle()
 
     form.onsubmit = (e) => {
         e.preventDefault();
@@ -54,11 +52,17 @@ function init(form) {
 
     EL.discard.onclick = (e) => {
         resetCategoryButtons()
-        getDocument()
-        .then((doc) => {
-            EL.pre.textContent = doc
-        })
+        refreshArticle()
     }
+
+
+}
+
+function initElements(form) {
+    EL.form = form
+    EL.discard = form.querySelector('[data-discard-document]')
+    EL.pre = form.querySelector('pre')
+    EL.category_buttons = form.querySelectorAll('.button--category')
 
     Array.prototype.forEach.call(
         EL.category_buttons,
@@ -68,6 +72,13 @@ function init(form) {
             }
         }
     )
+}
+
+function refreshArticle() {
+    getDocument()
+    .then((doc) => {
+        EL.pre.textContent = doc
+    })
 }
 
 function resetCategoryButtons() {
