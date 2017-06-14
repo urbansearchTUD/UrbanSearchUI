@@ -9,7 +9,7 @@
 
 {% block main %}
     <form class="form-classification" name="classification-form" action="" method="post" data-classification-form>
-        <pre class='document-viewer'>{{document}}</pre>
+        <pre contenteditable="true" class='document-viewer'>{{document}}</pre>
         <div class="controls--form">
             <div class="button_list--categories">
                 {% for category in categories %}
