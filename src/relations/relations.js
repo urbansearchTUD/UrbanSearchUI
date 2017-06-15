@@ -1,5 +1,5 @@
 const watcher = require('watch-object')
-
+const config = require('../../config')
 const LINE_OPTS = {
     // geodesic: true,
     strokeColor: '#F8BBD0',
@@ -8,19 +8,7 @@ const LINE_OPTS = {
     zindex: 5
 }
 
-function createAll(options) {
-    options.relations.forEach(rel => {
-        let from = options.markers[rel.from.id]
-        let to = options.markers[rel.to.id]
-        create({
-            'map': options.map,
-            'click': options.click,
-            'markerFrom': from,
-            'markerTo': to,
-            'rel': rel
-        })
-    })
-}
+const MAX_RELATION_VALUES = {}
 
 function addInfoWindow(path, cityA, cityB) {
     let infoWindow = new google.maps.InfoWindow({
@@ -48,6 +36,16 @@ function addWatcher(path, markerA, markerB) {
     })
 }
 
+function calculateRelationScore(relation) {
+    return config.get('rel_categories').reduce((total, rel_name) => {
+        let strength = Number(relation[rel_name])
+        if(!isNaN(strength)) {
+            total = total + strength
+        }
+        return total
+    }, 0)
+}
+
 function create(options) {
     if (options.rel.from.id === options.rel.to.id) {
         console.log('should never happen!')
@@ -62,11 +60,52 @@ function create(options) {
     let flightPath = new google.maps.Polyline(LINE_OPTS)
     flightPath.setVisible(options.markerFrom.getVisible() && options.markerTo.getVisible())
     flightPath.setMap(options.map)
-    flightPath.addListener('click', () => click(options.rel))
+    flightPath.addListener('click', () => options.click(options.rel))
     addInfoWindow(flightPath, options.rel.from.name, options.rel.to.name)
     addWatcher(flightPath, options.markerFrom, options.markerTo)
 }
 
+function createAll(options) {
+    options.relations.forEach(rel => {
+        let from = options.markers[rel.from.id]
+        let to = options.markers[rel.to.id]
+        let total = calculateRelationScore(rel)
+
+        create({
+            'map': options.map,
+            'click': options.click,
+            'markerFrom': from,
+            'markerTo': to,
+            'rel': rel,
+            'relTotal': total
+        })
+
+        updateMaxTotal(total)
+        updateRelationMax(rel)
+    })
+}
+
+function getRelationMax() {
+    return MAX_RELATION_VALUES
+}
+
+function updateMax(name, value) {
+    if(!MAX_RELATION_VALUES[name] || value > MAX_RELATION_VALUES[name]) {
+        MAX_RELATION_VALUES[name] = value
+    }
+}
+
+function updateMaxTotal(total) {
+    updateMax('total', total)
+}
+
+function updateRelationMax(relation) {
+    config.get('rel_categories').forEach((rel_name) => {
+        updateMax(rel_name, relation[rel_name])
+    })
+}
+
 module.exports = {
-    createAll
+    createAll,
+    getRelationMax
 }

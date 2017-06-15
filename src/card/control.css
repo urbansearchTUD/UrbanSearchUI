@@ -9,8 +9,11 @@
     flex-direction: column;
 }
 
-.card--control__cities {
+.card--control__content {
     overflow-y: auto;
-    height: 230px;
-    margin-top: 15px;
+    flex-grow: 1;
+}
+
+.card--control__relations {
+    padding: 0 10px;
 }

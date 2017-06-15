@@ -1,6 +1,7 @@
 const CENTER = {lat: 51.98799603, lng: 5.922999562}
 const MAP_OPTIONS = {
     zoom: 7,
+    minZoom: 4, 
     center: CENTER,
     styles: require('./styles'),
     mapTypeControl: false,

@@ -10,7 +10,7 @@
 }
 
 .card > header {
-    border-bottom: 5px solid #a00037;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     background-color: #d81b60;
     padding: 15px 0;
     text-align: center;
@@ -18,22 +18,20 @@
 }
 
 .card p {
-    text-transform: capitalize;
     text-align: center;
-    padding: 0 50px;
+    color: #777;
 }
 
 .card nav {
-    display: flex;
-    justify-content: center;
     padding: 5px 0;
+    text-align: center;
 }
 
 .card input {
     width: 94%;
     margin-left: 3%;
     border: 0;
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #eee;
     padding: 10px 0;
     font-size: medium;
     transition: font 0.3s ease;
@@ -64,5 +62,9 @@
 }
 
 .card--list__hidden {
+    display: none;
+}
+
+.card--control__content.hidden {
     display: none;
 }

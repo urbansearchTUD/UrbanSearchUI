@@ -3,17 +3,19 @@
         MAP CONTROLS
     </header>
     <nav>
-        <button>Cities</button>
-        <button>Relations</button>
+        <button data-control-button-cities>Cities</button>
+        <button data-control-button-relations>Relations</button>
     </nav>
+    <div class="card--control__cities card--control__content" data-content-cities>
+        {% include 'slider/population.html' %}
 
-    {% include 'slider/population.html' %}
+        <input type="text" name="city-search" value="" placeholder="UrbanSearch" autocomplete="off">
+        <div class="card--control__cities" data-city-list>
 
-    <input type="text" name="city-search" value="" placeholder="UrbanSearch" autocomplete="off">
-    <div class="card--control__cities" data-city-list>
-
+        </div>
     </div>
-    <div class="card--control__relations">
+
+    <div class="card--control__content card--control__relations hidden" data-content-relations>
 
     </div>
 </section>
