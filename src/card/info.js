@@ -4,7 +4,6 @@ const INFO_CARD = document.querySelector('[data-info-card]')
 const CLOSE_BUTTON = document.querySelector('[data-info-button-close]')
 
 CLOSE_BUTTON.addEventListener('click', (e) => {
-    console.log('close');
     INFO_CARD.setAttribute("hidden", true);
 })
 

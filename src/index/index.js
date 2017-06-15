@@ -23,10 +23,6 @@ function relationClick(relation) {
     infocard.relationInfo(relation)
 }
 
-function markerDblClick(marker) {
-    console.log('marker dblclicked');
-}
-
 function popSliderUpdate(range) {
     for (let id of Object.keys(MARKERS)) {
         let visible = slider.inRange(MARKERS[id].city.population, range)
@@ -35,27 +31,32 @@ function popSliderUpdate(range) {
     controlcard.filterCityList(null, range)
 }
 
-neo4jutils.getCities().then(cities => {
+neo4jutils.getCities()
+    .then(cities => {
     MARKERS = markers.createAll({
         'map': googleMap,
         'cities': cities,
-        'click': markerClick,
-        'dblclick': markerDblClick,
+        'click': markerClick
     })
     return cities
-}).then((cities) => {
-    controlcard.initCityList({
-        'cities': cities,
-        'click': cityClick,
     })
-}).then(() => {
-    // Must happen after MARKER filling and city list creation
-    slider.createPopulationSlider({
-        'callback': popSliderUpdate,
+    .then((cities) => {
+        controlcard.initCityList({
+            'cities': cities,
+            'click': cityClick,
+        })
     })
-    controlcard.filterCityList()
-}).then(() => {
-    neo4jutils.getICRelations().then(icRels => {
+    .then(() => {
+        // Must happen after MARKER filling and city list creation
+        slider.createPopulationSlider({
+            'callback': popSliderUpdate,
+        })
+        controlcard.filterCityList()
+    })
+    .then(() => {
+        return neo4jutils.getICRelations()
+    })
+    .then(icRels => {
         relations.createAll({
             'map': googleMap,
             'markers': MARKERS,
@@ -63,7 +64,9 @@ neo4jutils.getCities().then(cities => {
             'click': relationClick
         })
     })
-})
+    .then(() => {
+        controlcard.initRelationList()
+    })
 
 // fetch('/data/city_latlng.json')
 //     .then(response => {

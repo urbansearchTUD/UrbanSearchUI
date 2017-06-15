@@ -8,6 +8,7 @@
 .card--info__content {
     max-height: 25vh;
     overflow-y: auto;
+    border-bottom: 1px solid #eee;
 }
 
 .card--table__info {
@@ -22,4 +23,11 @@
 
 .table--info__key {
     font-weight: lighter;
+}
+
+.card--button__close {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px 0px;
 }

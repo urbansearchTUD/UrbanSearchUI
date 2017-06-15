@@ -1,0 +1,5 @@
+<p>Select the minimum value for the relation type</p>
+{% for relation, max in relations %}
+{{ relation | capitalize }}<br>
+<input class='slider--relation' type="range" name={{relation}} min="0" max={{max}} value=0>
+{% endfor %}
