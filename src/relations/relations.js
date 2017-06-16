@@ -9,6 +9,12 @@ const LINE_OPTS = {
 }
 
 const MAX_RELATION_VALUES = {}
+const RELATIONS = {}
+const RELATIONS_VISIBILTY = config.get('rel_categories').reduce((result, item) => {
+    result[item] = true
+    return result
+}, {total:true})
+
 
 function addInfoWindow(path, cityA, cityB) {
     let infoWindow = new google.maps.InfoWindow({
@@ -58,11 +64,17 @@ function create(options) {
     ]
 
     let flightPath = new google.maps.Polyline(LINE_OPTS)
+    flightPath['relID'] = options.relID
+    flightPath['rel'] = options.rel
+    flightPath['relTotal'] = options.relTotal
+    flightPath['visibility'] = Object.assign({}, RELATIONS_VISIBILTY)
     flightPath.setVisible(options.markerFrom.getVisible() && options.markerTo.getVisible())
     flightPath.setMap(options.map)
     flightPath.addListener('click', () => options.click(options.rel))
     addInfoWindow(flightPath, options.rel.from.name, options.rel.to.name)
     addWatcher(flightPath, options.markerFrom, options.markerTo)
+
+    return flightPath
 }
 
 function createAll(options) {
@@ -70,13 +82,15 @@ function createAll(options) {
         let from = options.markers[rel.from.id]
         let to = options.markers[rel.to.id]
         let total = calculateRelationScore(rel)
+        let rel_id = rel.from.id.toString() + rel.to.id.toString()
 
-        create({
+        RELATIONS[rel_id] = create({
             'map': options.map,
             'click': options.click,
             'markerFrom': from,
             'markerTo': to,
             'rel': rel,
+            'relID': rel_id,
             'relTotal': total
         })
 
@@ -105,7 +119,33 @@ function updateRelationMax(relation) {
     })
 }
 
+function updateRelationVisibility(relation, rel_name, value) {
+    let visibility = relation['visibility']
+
+    if(rel_name==='total') {
+        visibility[rel_name] = relation.relTotal >= value
+    } else {
+        visibility[rel_name] = relation.rel[rel_name] >= value
+    }
+
+    if(visibility[rel_name]) {
+        relation.setVisible(Object.keys(visibility).reduce((result, category) => {
+            return (result && visibility[category])
+        }, true))
+    } else {
+        relation.setVisible(false)
+    }
+}
+
+function updateVisibility(rel_name, value) {
+    console.log('in update');
+    for(let rel in RELATIONS) {
+        updateRelationVisibility(RELATIONS[rel], rel_name, value)
+    }
+}
+
 module.exports = {
     createAll,
-    getRelationMax
+    getRelationMax,
+    updateVisibility
 }

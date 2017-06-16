@@ -13,7 +13,7 @@ const CITY_SEARCH = document.querySelector('[name="city-search"]')
 function initRelationSliders() {
     document.querySelectorAll('.slider--relation').forEach((slider) => {
         slider.addEventListener('change', (e) => {
-            console.log(e.target.value);
+            relations.updateVisibility(e.target.name, e.target.value)
         })
     })
 }
