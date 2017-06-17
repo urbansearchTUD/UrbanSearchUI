@@ -4,7 +4,7 @@ const LINE_OPTS = {
     // geodesic: true,
     strokeColor: '#00a6d6',
     strokeOpacity: 1,
-    strokeWeight: 4,
+    strokeWeight: 6,
     zindex: 5
 }
 
@@ -21,7 +21,7 @@ function addInfoWindow(path, cityA, cityB) {
     path.addListener('mouseover', (e) => {
         // Move window slightly up to allow for clicking the relation
         infoWindow.setPosition({
-            'lat': e.latLng.lat() + 0.02,
+            'lat': e.latLng.lat() + 0.002,
             'lng': e.latLng.lng()
         })
         infoWindow.open(map, path)
@@ -107,7 +107,7 @@ function ICRelation(options) {
     flightPath.rel = options.rel
     flightPath.relTotal = options.relTotal
     flightPath.relVisibility = Object.assign({}, RELATIONS_VISIBILTY)
-    flightPath.strokeOpacity = options.relTotal / MAX_RELATION_VALUES.total
+    flightPath.strokeOpacity = Math.sqrt(options.relTotal / MAX_RELATION_VALUES.total)
 
     flightPath.setVisible(options.markerFrom.getVisible() && options.markerTo.getVisible())
     flightPath.setMap(options.map)
