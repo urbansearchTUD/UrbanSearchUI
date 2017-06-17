@@ -2,7 +2,7 @@ const watcher = require('watch-object')
 const config = require('../../config')
 const LINE_OPTS = {
     // geodesic: true,
-    strokeColor: '#F8BBD0',
+    strokeColor: '#00a6d6',
     strokeOpacity: 1,
     strokeWeight: 4,
     zindex: 5
@@ -10,10 +10,7 @@ const LINE_OPTS = {
 
 const MAX_RELATION_VALUES = {}
 const RELATIONS = {}
-const RELATIONS_VISIBILTY = config.get('rel_categories').reduce((result, item) => {
-    result[item] = true
-    return result
-}, {total:true})
+const RELATIONS_VISIBILTY = RelationVisibilty()
 
 
 function addInfoWindow(path, cityA, cityB) {
@@ -40,6 +37,9 @@ function addWatcher(path, markerA, markerB) {
     watcher.watch(markerB, 'visible', (newval, oldval) => {
         path.setVisible(markerA.getVisible() && newval)
     })
+    watcher.watch(path, 'visible', (newval, oldval) => {
+        path.setVisible(markerA.getVisible() && markerB.getVisible() && newval)
+    })
 }
 
 function calculateRelationScore(relation) {
@@ -58,23 +58,7 @@ function create(options) {
         return
     }
 
-    LINE_OPTS['path'] = [
-        {lat: options.rel.from.lat, lng: options.rel.from.lng},
-        {lat: options.rel.to.lat, lng: options.rel.to.lng}
-    ]
-
-    let flightPath = new google.maps.Polyline(LINE_OPTS)
-    flightPath['relID'] = options.relID
-    flightPath['rel'] = options.rel
-    flightPath['relTotal'] = options.relTotal
-    flightPath['visibility'] = Object.assign({}, RELATIONS_VISIBILTY)
-    flightPath.setVisible(options.markerFrom.getVisible() && options.markerTo.getVisible())
-    flightPath.setMap(options.map)
-    flightPath.addListener('click', () => options.click(options.rel))
-    addInfoWindow(flightPath, options.rel.from.name, options.rel.to.name)
-    addWatcher(flightPath, options.markerFrom, options.markerTo)
-
-    return flightPath
+    return ICRelation(options)
 }
 
 function createAll(options) {
@@ -103,6 +87,36 @@ function getRelationMax() {
     return MAX_RELATION_VALUES
 }
 
+function ICRelation(options) {
+    LINE_OPTS['path'] = [
+        {lat: options.rel.from.lat, lng: options.rel.from.lng},
+        {lat: options.rel.to.lat, lng: options.rel.to.lng}
+    ]
+
+    let flightPath = new google.maps.Polyline(LINE_OPTS)
+
+    flightPath.relID = options.relID
+    flightPath.rel = options.rel
+    flightPath.relTotal = options.relTotal
+    flightPath.relVisibility = Object.assign({}, RELATIONS_VISIBILTY)
+    flightPath.strokeOpacity = options.relTotal / MAX_RELATION_VALUES.total
+
+    flightPath.setVisible(options.markerFrom.getVisible() && options.markerTo.getVisible())
+    flightPath.setMap(options.map)
+    flightPath.addListener('click', () => options.click(options.rel))
+    addInfoWindow(flightPath, options.rel.from.name, options.rel.to.name)
+    addWatcher(flightPath, options.markerFrom, options.markerTo)
+
+    return flightPath
+}
+
+function RelationVisibilty() {
+    return config.get('rel_categories').reduce((result, item) => {
+        result[item] = true
+        return result
+    }, {total:true})
+}
+
 function updateMax(name, value) {
     if(!MAX_RELATION_VALUES[name] || value > MAX_RELATION_VALUES[name]) {
         MAX_RELATION_VALUES[name] = value
@@ -120,13 +134,10 @@ function updateRelationMax(relation) {
 }
 
 function updateRelationVisibility(relation, rel_name, value) {
-    let visibility = relation['visibility']
+    let visibility = relation['relVisibility']
 
-    if(rel_name==='total') {
-        visibility[rel_name] = relation.relTotal >= value
-    } else {
-        visibility[rel_name] = relation.rel[rel_name] >= value
-    }
+    visibility[rel_name] = rel_name==='total' ? relation.relTotal >= value :
+                                                relation.rel[rel_name] >= value
 
     if(visibility[rel_name]) {
         relation.setVisible(Object.keys(visibility).reduce((result, category) => {
@@ -138,7 +149,6 @@ function updateRelationVisibility(relation, rel_name, value) {
 }
 
 function updateVisibility(rel_name, value) {
-    console.log('in update');
     for(let rel in RELATIONS) {
         updateRelationVisibility(RELATIONS[rel], rel_name, value)
     }
