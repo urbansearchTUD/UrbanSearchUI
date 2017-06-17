@@ -31,11 +31,13 @@ function addInfoWindow(path, cityA, cityB) {
 }
 
 function addWatcher(path, markerA, markerB) {
+    const visibility = path.relVisibility
+
     watcher.watch(markerA, 'visible', (newval, oldval) => {
-        path.setVisible(markerB.getVisible() && newval)
+        path.setVisible(markerB.getVisible() && getRelationVisibility(visibility) && newval)
     })
     watcher.watch(markerB, 'visible', (newval, oldval) => {
-        path.setVisible(markerA.getVisible() && newval)
+        path.setVisible(markerA.getVisible() && getRelationVisibility(visibility) && newval)
     })
     watcher.watch(path, 'visible', (newval, oldval) => {
         path.setVisible(markerA.getVisible() && markerB.getVisible() && newval)
@@ -85,6 +87,12 @@ function createAll(options) {
 
 function getRelationMax() {
     return MAX_RELATION_VALUES
+}
+
+function getRelationVisibility(visibility) {
+    return Object.keys(visibility).reduce((result, category) => {
+        return (result && visibility[category])
+    }, true)
 }
 
 function ICRelation(options) {
@@ -140,9 +148,7 @@ function updateRelationVisibility(relation, rel_name, value) {
                                                 relation.rel[rel_name] >= value
 
     if(visibility[rel_name]) {
-        relation.setVisible(Object.keys(visibility).reduce((result, category) => {
-            return (result && visibility[category])
-        }, true))
+        relation.setVisible(getRelationVisibility(visibility))
     } else {
         relation.setVisible(false)
     }
