@@ -13,8 +13,9 @@
     "min_strength": 250,
     "loglevel": "WARN",
     "label_threshold": 0.4,
-    "rel_categories": ["commuting", "shopping", "leisure", "residential_mobility", "education", "collaboration", "transportation", "other"],
-    "rel_categories_selected": ["commuting", "shopping", "leisure", "residential_mobility", "education", "collaboration", "transportation", "other"],
+    "rel_categories": ["commuting", "shopping", "leisure", "residential_mobility", "education", "collaboration", "transportation", "other", "total"],
+    "rel_categories_interface": ["commuting", "shopping", "leisure", "residential_mobility", "education", "collaboration", "transportation"],
+    "rel_categories_selected": ["commuting", "shopping", "leisure", "residential_mobility", "education", "collaboration", "transportation", "other", "total"],
     "export_format": "csv",
     "cc_index": "CC-MAIN-2017-17-index"
 }

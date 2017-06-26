@@ -10,6 +10,7 @@ const CONTENT_RELATIONS = document.querySelector('[data-content-relations]')
 const CITY_LIST = document.querySelector('[data-city-list]')
 const CITY_SEARCH = document.querySelector('[name="city-search"]')
 
+
 function initRelationSliders() {
     document.querySelectorAll('.slider--relation').forEach((slider) => {
         slider.addEventListener('change', (e) => {
@@ -18,23 +19,37 @@ function initRelationSliders() {
     })
 }
 
+
 CITY_SEARCH.addEventListener('input', (e) => {
     filterCityList(e.target.value.toUpperCase())
 })
+
 
 BUTTON_CITIES.addEventListener('click', (e) => {
     CONTENT_CITIES.classList.remove('hidden')
     CONTENT_RELATIONS.classList.add('hidden')
 })
 
+
 BUTTON_RELATIONS.addEventListener('click', (e) => {
     CONTENT_CITIES.classList.add('hidden')
     CONTENT_RELATIONS.classList.remove('hidden')
 })
 
+
 function createCityList(cities) {
     return nunjucks.render('card/citylist.html', {cities: cities})
 }
+
+function initCategoryActive() {
+    document.querySelectorAll('[data-category-active]').forEach((el) => {
+        el.addEventListener('change', (e) => {
+            console.log(e.target.value);
+            console.log(e.target.checked);
+        })
+    })
+}
+
 
 function initCityList(options) {
     CITY_LIST.innerHTML = createCityList(options.cities);
@@ -46,13 +61,23 @@ function initCityList(options) {
     }
 }
 
-function initRelationList() {
+
+function initRelationList(options) {
     const html = nunjucks.render('card/relations.html', {
-        relations: relations.getRelationMax()
+        relations: options.relations
     })
     CONTENT_RELATIONS.innerHTML = html
     initRelationSliders()
+    initRelationTransform(options.transform)
+    initCategoryActive()
 }
+
+function initRelationTransform(cb) {
+    document.querySelector('[data-transform-select]').addEventListener('change', (e) => {
+        cb(e)
+    })
+}
+
 
 function filterCityList(name, range) {
     if (!name) {
@@ -66,15 +91,18 @@ function filterCityList(name, range) {
     }
 }
 
+
 function checkRange(element, range) {
     let pop = parseInt(element.getAttribute('data-city-pop'))
     return pop >= range[0] && pop <= range[1]
 }
 
+
 function checkName(element, name) {
     let cityName = element.getAttribute('data-city-name').toUpperCase()
     return cityName.includes(name)
 }
+
 
 function setVisibility(element, visibility) {
     if (!visibility) {
@@ -84,9 +112,11 @@ function setVisibility(element, visibility) {
     }
 }
 
+
 function isVisible(element) {
     return !element.contains('card--list__hidden')
 }
+
 
 module.exports = {
     createCityList,

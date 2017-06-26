@@ -27,6 +27,14 @@
     text-align: center;
 }
 
+.card select {
+    border: 1px solid #ddd;
+    font-size: 18px;
+    width: 100%;
+    text-align: center;
+    color: #00a6d6;
+}
+
 .card input {
     width: 94%;
     margin-left: 3%;
@@ -40,6 +48,10 @@
 
 .card input:focus {
     font-size: small;
+}
+
+.card input[type=checkbox] {
+    width: initial;
 }
 
 .card button {

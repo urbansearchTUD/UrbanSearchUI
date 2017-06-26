@@ -4,13 +4,13 @@ const LINE_OPTS = {
     // geodesic: true,
     strokeColor: '#00a6d6',
     strokeOpacity: 1,
-    strokeWeight: 6,
+    strokeWeight: 4,
     zindex: 5
 }
 
+const CATEGORIES = config.get('rel_categories')
 const MAX_RELATION_VALUES = {}
 const RELATIONS = {}
-const RELATIONS_VISIBILTY = RelationVisibilty()
 
 
 function addInfoWindow(path, cityA, cityB) {
@@ -20,39 +20,34 @@ function addInfoWindow(path, cityA, cityB) {
 
     path.addListener('mouseover', (e) => {
         // Move window slightly up to allow for clicking the relation
+        path.setOptions({strokeWeight: 10})
         infoWindow.setPosition({
-            'lat': e.latLng.lat() + 0.002,
+            'lat': e.latLng.lat() + 0.009,
             'lng': e.latLng.lng()
         })
         infoWindow.open(map, path)
     })
 
-    path.addListener('mouseout', () => infoWindow.close())
+    path.addListener('mouseout', () => {
+        path.setOptions({strokeWeight: 4})
+        infoWindow.close()
+    })
 }
 
 function addWatcher(path, markerA, markerB) {
-    const visibility = path.relVisibility
+    const relation = path.rel
 
     watcher.watch(markerA, 'visible', (newval, oldval) => {
-        path.setVisible(markerB.getVisible() && getRelationVisibility(visibility) && newval)
+        path.setVisible(markerB.getVisible() && getRelationVisibility(relation) && newval)
     })
     watcher.watch(markerB, 'visible', (newval, oldval) => {
-        path.setVisible(markerA.getVisible() && getRelationVisibility(visibility) && newval)
+        path.setVisible(markerA.getVisible() && getRelationVisibility(relation) && newval)
     })
     watcher.watch(path, 'visible', (newval, oldval) => {
         path.setVisible(markerA.getVisible() && markerB.getVisible() && newval)
     })
 }
 
-function calculateRelationScore(relation) {
-    return config.get('rel_categories').reduce((total, rel_name) => {
-        let strength = Number(relation[rel_name])
-        if(!isNaN(strength)) {
-            total = total + strength
-        }
-        return total
-    }, 0)
-}
 
 function create(options) {
     if (options.rel.from.id === options.rel.to.id) {
@@ -65,9 +60,14 @@ function create(options) {
 
 function createAll(options) {
     options.relations.forEach(rel => {
+        updateRelationMax(rel)
+    })
+
+    console.log('INITIAL MAX:', MAX_RELATION_VALUES.total);
+
+    options.relations.forEach(rel => {
         let from = options.markers[rel.from.id]
         let to = options.markers[rel.to.id]
-        let total = calculateRelationScore(rel)
         let rel_id = rel.from.id.toString() + rel.to.id.toString()
 
         RELATIONS[rel_id] = create({
@@ -77,21 +77,23 @@ function createAll(options) {
             'markerTo': to,
             'rel': rel,
             'relID': rel_id,
-            'relTotal': total
         })
-
-        updateMaxTotal(total)
-        updateRelationMax(rel)
     })
+
+    return RELATIONS
+}
+
+function getRelations() {
+    return RELATIONS
 }
 
 function getRelationMax() {
     return MAX_RELATION_VALUES
 }
 
-function getRelationVisibility(visibility) {
-    return Object.keys(visibility).reduce((result, category) => {
-        return (result && visibility[category])
+function getRelationVisibility(relation) {
+    return CATEGORIES.reduce((result, category) => {
+        return (result && relation[category].visible)
     }, true)
 }
 
@@ -104,25 +106,39 @@ function ICRelation(options) {
     let flightPath = new google.maps.Polyline(LINE_OPTS)
 
     flightPath.relID = options.relID
-    flightPath.rel = options.rel
-    flightPath.relTotal = options.relTotal
-    flightPath.relVisibility = Object.assign({}, RELATIONS_VISIBILTY)
-    flightPath.strokeOpacity = Math.sqrt(options.relTotal / MAX_RELATION_VALUES.total)
+    flightPath.rel = rel(options.rel)
+    flightPath.rel.from.population = options.markerFrom.city.population
+    flightPath.rel.to.population = options.markerTo.city.population
+    flightPath.strokeOpacity = Math.sqrt(options.rel['total'] / MAX_RELATION_VALUES.total)
 
     flightPath.setVisible(options.markerFrom.getVisible() && options.markerTo.getVisible())
     flightPath.setMap(options.map)
-    flightPath.addListener('click', () => options.click(options.rel))
+    flightPath.addListener('click', () => options.click(flightPath.rel))
     addInfoWindow(flightPath, options.rel.from.name, options.rel.to.name)
     addWatcher(flightPath, options.markerFrom, options.markerTo)
 
     return flightPath
 }
 
-function RelationVisibilty() {
-    return config.get('rel_categories').reduce((result, item) => {
-        result[item] = true
+function rel(relation) {
+    return CATEGORIES.reduce((result, category) => {
+        result[category] = {
+            current: relation[category],
+            original: relation[category],
+            visible: true
+        }
         return result
-    }, {total:true})
+    }, {
+        from: relation.from,
+        to: relation.to
+    })
+}
+
+function relationDict(arg) {
+    return CATEGORIES.reduce((result, item) => {
+        result[item] = arg
+        return result
+    }, {})
 }
 
 function updateMax(name, value) {
@@ -142,13 +158,12 @@ function updateRelationMax(relation) {
 }
 
 function updateRelationVisibility(relation, rel_name, value) {
-    let visibility = relation['relVisibility']
+    const rel = relation.rel
 
-    visibility[rel_name] = rel_name==='total' ? relation.relTotal >= value :
-                                                relation.rel[rel_name] >= value
+    rel[rel_name].visibile = rel[rel_name].current >= value
 
-    if(visibility[rel_name]) {
-        relation.setVisible(getRelationVisibility(visibility))
+    if(rel[rel_name].visibile) {
+        relation.setVisible(getRelationVisibility(rel))
     } else {
         relation.setVisible(false)
     }
@@ -162,6 +177,8 @@ function updateVisibility(rel_name, value) {
 
 module.exports = {
     createAll,
+    getRelations,
     getRelationMax,
+    relationDict,
     updateVisibility
 }

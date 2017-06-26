@@ -6,9 +6,11 @@ const infocard = require('../card/info')
 const slider = require('../slider/slider')
 const neo4jutils = require('../neo4j_utils/neo4j_utils')
 const relations = require('../relations/relations')
+const transforms = require('../relations/transforms')
 
 const googleMap = map.initMap('map')
 var MARKERS = null;
+const RELATIONS_ACTIVE = relations.relationDict(true)
 
 function cityClick(cityId) {
     const marker = MARKERS[cityId]
@@ -19,16 +21,20 @@ function markerClick(marker) {
     infocard.markerInfo(marker)
 }
 
-function relationClick(relation) {
-    infocard.relationInfo(relation)
-}
-
 function popSliderUpdate(range) {
     for (let id of Object.keys(MARKERS)) {
         let visible = slider.inRange(MARKERS[id].city.population, range)
         MARKERS[id].setVisible(visible)
     }
     controlcard.filterCityList(null, range)
+}
+
+function relationClick(relation) {
+    infocard.relationInfo(relation)
+}
+
+function transformCallback(e) {
+    transforms[e.target.value](relations.getRelations())
 }
 
 neo4jutils.getCities()
@@ -65,19 +71,8 @@ neo4jutils.getCities()
         })
     })
     .then(() => {
-        controlcard.initRelationList()
+        controlcard.initRelationList({
+            relations: relations.getRelationMax(),
+            transform: transformCallback
+        })
     })
-
-// fetch('/data/city_latlng.json')
-//     .then(response => {
-//         return response.json()
-//     })
-//     .then(cities => {
-//         controlcard.initCityList({cities, click: cityClick})
-//         MARKERS = markers.createAll({
-//             'map': googleMap,
-//             'cities': cities,
-//             'click': markerClick,
-//             'dblclick': markerDblClick
-//         })
-//     })

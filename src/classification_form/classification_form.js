@@ -34,7 +34,8 @@ function getDocument() {
             return response.json()
         })
         .then((data) => {
-            return data['document']
+            let doc = data['document'].replace(/{.*}/g, '')
+            return doc.replace('\n', '\b')
         })
         .catch((err) => {
             console.log(err);

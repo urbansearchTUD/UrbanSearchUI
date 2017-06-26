@@ -22,7 +22,7 @@ const CITY_QUERY = {
 }
 const REL_QUERY = {
     "statements": [{
-        "statement" : "MATCH (a:City)-[r:RELATES_TO]->(b:City) "
+        "statement" : "MATCH (a:City)-[r:RELATES_TO]->(b:City) WHERE r.total > 500 "
                     + "RETURN ID(a), a.name, a.latitude, a.longitude, "
                     + "ID(b), b.name, b.latitude, b.longitude, PROPERTIES(r)"
     }]
@@ -64,7 +64,7 @@ function getICRelations(cities) {
 
 function checkErr(errors) {
     if (errors.length > 0) {
-        console.log("ERROR during query: " + neo4jResponse.errors[0])
+        console.log("ERROR during query: " + errors[0])
     }
 }
 

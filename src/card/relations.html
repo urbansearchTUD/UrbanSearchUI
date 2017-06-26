@@ -1,5 +1,10 @@
+<p>Select the mod</p>
+<select name="transform" data-transform-select>
+    <option value="occurence">Occurence</option>
+    <option value="gravity">Gravity Model</option>
+</select>
 <p>Select the minimum value for the relation type</p>
 {% for relation, max in relations %}
-{{ relation | capitalize }}<br>
+<input type="checkbox" name="active" value={{relation}} checked data-category-active>{{ relation | capitalize }}<br>
 <input class='slider--relation' type="range" name={{relation}} min="0" max={{max}} value=0>
 {% endfor %}
