@@ -4,7 +4,7 @@ const LINE_OPTS = {
     // geodesic: true,
     strokeColor: '#00a6d6',
     strokeOpacity: 1,
-    strokeWeight: 4,
+    strokeWeight: 6,
     zindex: 5
 }
 
