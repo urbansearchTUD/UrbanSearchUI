@@ -63,8 +63,6 @@ function createAll(options) {
         updateRelationMax(rel)
     })
 
-    console.log('INITIAL MAX:', MAX_RELATION_VALUES.total);
-
     options.relations.forEach(rel => {
         let from = options.markers[rel.from.id]
         let to = options.markers[rel.to.id]
@@ -77,6 +75,7 @@ function createAll(options) {
             'markerTo': to,
             'rel': rel,
             'relID': rel_id,
+            'visible': options.visible
         })
     })
 
@@ -111,7 +110,12 @@ function ICRelation(options) {
     flightPath.rel.to.population = options.markerTo.city.population
     flightPath.strokeOpacity = Math.sqrt(options.rel['total'] / MAX_RELATION_VALUES.total)
 
-    flightPath.setVisible(options.markerFrom.getVisible() && options.markerTo.getVisible())
+    if(typeof options.visible !== 'undefined') {
+        flightPath.setVisible(options.visible)
+    }
+    else {
+        flightPath.setVisible(options.markerFrom.getVisible() && options.markerTo.getVisible())
+    }
     flightPath.setMap(options.map)
     flightPath.addListener('click', () => options.click(flightPath.rel))
     addInfoWindow(flightPath, options.rel.from.name, options.rel.to.name)
