@@ -2,6 +2,25 @@ const scale = require('../scale/scale')
 const config = require('../../config')
 const ICON_URL = '/img/circle.svg'
 
+
+function addInfoWindow(marker) {
+    let infoWindow = new google.maps.InfoWindow({
+        content: marker.city.name
+    })
+
+    marker.addListener('mouseover', (e) => {
+        infoWindow.setPosition({
+            'lat': e.latLng.lat() + 0.009,
+            'lng': e.latLng.lng()
+        })
+        infoWindow.open(map, marker)
+    })
+
+    marker.addListener('mouseout', () => {
+        infoWindow.close()
+    })
+}
+
 function createAll(options) {
     const cityMakerMap = {}
 
@@ -34,6 +53,7 @@ function create(options) {
 
     marker.addListener('click', () => options.click(marker))
     marker.addListener('dblclick', () => options.dblclick(marker))
+    addInfoWindow(marker)
 
     return marker
 }

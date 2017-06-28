@@ -67,7 +67,8 @@ neo4jutils.getCities()
             'map': googleMap,
             'markers': MARKERS,
             'relations': icRels,
-            'click': relationClick
+            'click': relationClick,
+            'visible': false
         })
     })
     .then(() => {

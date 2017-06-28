@@ -1,3 +1,5 @@
+const BabiliPlugin = require("babili-webpack-plugin");
+
 module.exports = {
   entry: {
         'classify': './src/classify/classify.js',
@@ -6,5 +8,8 @@ module.exports = {
     },
     output: {
         filename: './dist/js/[name].bundle.js'
-    }
+    },
+    plugins: [
+    new BabiliPlugin()
+  ]
 }
