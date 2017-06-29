@@ -17,5 +17,6 @@
     "rel_categories_interface": ["commuting", "shopping", "leisure", "residential_mobility", "education", "collaboration", "transportation"],
     "rel_categories_selected": ["commuting", "shopping", "leisure", "residential_mobility", "education", "collaboration", "transportation", "other", "total"],
     "export_format": "csv",
-    "cc_index": "CC-MAIN-2017-17-index"
+    "cc_index": "CC-MAIN-2017-17-index",
+    "api_url": "http://citynetworks.bk.tudelft.nl/api/v1/"
 }

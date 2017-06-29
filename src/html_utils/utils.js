@@ -1,4 +1,3 @@
-
 function str2html(string) {
     return document.createRange().createContextualFragment(string)
 }

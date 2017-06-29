@@ -1,4 +1,4 @@
-const CENTER = {lat: 51.98799603, lng: 5.922999562}
+const CENTER = {lat: 51.9225, lng: 4.47917}
 const MAP_OPTIONS = {
     zoom: 8,
     minZoom: 4,

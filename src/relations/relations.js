@@ -4,7 +4,7 @@ const LINE_OPTS = {
     // geodesic: true,
     strokeColor: '#00a6d6',
     strokeOpacity: 1,
-    strokeWeight: 4,
+    strokeWeight: 6,
     zindex: 5
 }
 
@@ -38,13 +38,21 @@ function addWatcher(path, markerA, markerB) {
     const relation = path.rel
 
     watcher.watch(markerA, 'visible', (newval, oldval) => {
-        path.setVisible(markerB.getVisible() && getRelationVisibility(relation) && newval)
+        path.setVisible(markerB.getVisible() && getRelationVisibility(relation) && newval && (markerA.selected || markerB.selected))
     })
     watcher.watch(markerB, 'visible', (newval, oldval) => {
-        path.setVisible(markerA.getVisible() && getRelationVisibility(relation) && newval)
+        path.setVisible(markerA.getVisible() && getRelationVisibility(relation) && newval && (markerA.selected || markerB.selected))
     })
     watcher.watch(path, 'visible', (newval, oldval) => {
-        path.setVisible(markerA.getVisible() && markerB.getVisible() && newval)
+        path.setVisible(markerA.getVisible() && markerB.getVisible() && newval && (markerA.selected || markerB.selected))
+    })
+
+    watcher.watch(markerA, 'selected', (newval, oldval) => {
+        path.setVisible(getRelationVisibility(relation) && markerA.getVisible() && markerB.getVisible() && (markerA.selected || markerB.selected))
+    })
+
+    watcher.watch(markerB, 'selected', (newval, oldval) => {
+        path.setVisible(getRelationVisibility(relation) && markerA.getVisible() && markerB.getVisible() && (markerA.selected || markerB.selected))
     })
 }
 

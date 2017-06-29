@@ -48,7 +48,8 @@ function create(options) {
         icon: scaledIcon(city.population),
         opacity: .7,
         city: city,
-        visible: city.population >= min && city.population <= max
+        visible: city.population >= min && city.population <= max,
+        selected: false
     })
 
     marker.addListener('click', () => options.click(marker))

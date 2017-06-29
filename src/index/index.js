@@ -7,6 +7,7 @@ const slider = require('../slider/slider')
 const neo4jutils = require('../neo4j_utils/neo4j_utils')
 const relations = require('../relations/relations')
 const transforms = require('../relations/transforms')
+const exporter = require('../export/export')
 
 const googleMap = map.initMap('map')
 var MARKERS = null;
@@ -19,7 +20,7 @@ function cityClick(cityId) {
 }
 
 function markerClick(marker) {
-    infocard.markerInfo(marker)
+    marker.selected = !marker.selected
 }
 
 function popSliderUpdate(range) {

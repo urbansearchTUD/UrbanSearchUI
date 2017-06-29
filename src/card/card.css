@@ -47,6 +47,10 @@
     text-align: center;
 }
 
+.card input:hover {
+    border-bottom: 1px solid #00a6d6;
+}
+
 .card input:focus {
     font-size: small;
 }
