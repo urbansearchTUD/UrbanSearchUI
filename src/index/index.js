@@ -32,7 +32,11 @@ function popSliderUpdate(range) {
 }
 
 function relationClick(relation) {
-    SIDEMENU.insertBefore(infocard.relationInfo(relation), SIDEMENU.firstChild)
+    const el = infocard.relationInfo(relation)
+    SIDEMENU.insertBefore(el, SIDEMENU.firstChild)
+    setTimeout(() => {
+        SIDEMENU.firstChild.classList.remove('init')
+    }, 50);
 }
 
 function transformCallback(e) {

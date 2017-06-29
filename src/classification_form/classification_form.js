@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://citynetworks.bk.tudelft.nl/api/v1'
+const API_BASE_URL = 'http://127.0.0.1:5000/api/v1'
 const API_APPEND_ALL_PATH = API_BASE_URL + '/datasets/append_all'
 const API_DOCUMENT_PATH =  API_BASE_URL + '/documents/'
 const EL = {}
@@ -46,6 +46,10 @@ function init(form) {
     initElements(form)
     refreshArticle()
 
+    EL.clear.onclick = (e) => {
+        EL.pre.innerHTML = ''
+    }
+
     form.onsubmit = (e) => {
         e.preventDefault();
         submit(e.target)
@@ -64,6 +68,7 @@ function initElements(form) {
     EL.discard = form.querySelector('[data-discard-document]')
     EL.pre = form.querySelector('pre')
     EL.category_buttons = form.querySelectorAll('.button--category')
+    EL.clear = form.querySelector('[data-clear-document]')
 
     Array.prototype.forEach.call(
         EL.category_buttons,

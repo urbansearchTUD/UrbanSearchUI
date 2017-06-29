@@ -24,7 +24,7 @@ CITY_SEARCH.addEventListener('input', (e) => {
     filterCityList(e.target.value.toUpperCase())
 })
 
-// 
+//
 // BUTTON_CITIES.addEventListener('click', (e) => {
 //     CONTENT_CITIES.classList.remove('hidden')
 //     CONTENT_RELATIONS.classList.add('hidden')
@@ -66,7 +66,7 @@ function initRelationList(options) {
     const html = nunjucks.render('card/relations.html', {
         relations: options.relations
     })
-    CONTENT_RELATIONS.innerHTML = html
+    CONTENT_RELATIONS.innerHTML = CONTENT_RELATIONS.innerHTML + html
     initRelationSliders()
     initRelationTransform(options.transform)
     initCategoryActive()

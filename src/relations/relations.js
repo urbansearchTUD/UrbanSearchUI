@@ -46,11 +46,9 @@ function addWatcher(path, markerA, markerB) {
     watcher.watch(path, 'visible', (newval, oldval) => {
         path.setVisible(markerA.getVisible() && markerB.getVisible() && newval && (markerA.selected || markerB.selected))
     })
-
     watcher.watch(markerA, 'selected', (newval, oldval) => {
         path.setVisible(getRelationVisibility(relation) && markerA.getVisible() && markerB.getVisible() && (markerA.selected || markerB.selected))
     })
-
     watcher.watch(markerB, 'selected', (newval, oldval) => {
         path.setVisible(getRelationVisibility(relation) && markerA.getVisible() && markerB.getVisible() && (markerA.selected || markerB.selected))
     })

@@ -5,7 +5,7 @@ const ICON_URL = '/img/circle.svg'
 
 function addInfoWindow(marker) {
     let infoWindow = new google.maps.InfoWindow({
-        content: marker.city.name
+        content: marker.city.name + '\n - Population: ' + marker.city.population
     })
 
     marker.addListener('mouseover', (e) => {

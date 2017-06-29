@@ -1,11 +1,12 @@
 <section class="card card--control" data-sidemenu>
     <div class="card--control__content card--control__relations" data-content-export>
         <p>Export Relations</p>
-        <a id="exportBtn" href="/"><img src="/img/export.svg"></a>
         <input type="number" placeholder="Probability Threshold" step="0.05" min="0" max="1">
+        <a id="exportBtn" href="/"><img src="/img/export.svg"></a>
         </datalist>
     </div>
     <div class="card--control__cities card--control__content" data-content-cities>
+        <p>Cities</p>
         <div class="card--control__content--header">
             {% include 'slider/population.html' %}
 
@@ -17,8 +18,14 @@
     </div>
 
     <div class="card--control__content">
+        <p>Relations</p>
         <div class="card--control__relations" data-content-relations>
-
+            <span class="hint">Select a relationscore transform function</span>
+            <select name="transform" data-transform-select>
+                <option value="occurence">Occurence</option>
+                <option value="gravity">Gravity Model</option>
+            </select>
+            <span class="hint">Select the minimum value for the relation type</span>
         </div>
 
     </div>
