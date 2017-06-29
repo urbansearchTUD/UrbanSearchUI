@@ -19,7 +19,9 @@
 
 .card p {
     text-align: center;
-    color: #777;
+    color: #444;
+    font-size: large;
+    font-weight: lighter;
 }
 
 .card nav {
@@ -51,8 +53,9 @@
     border-bottom: 1px solid #00a6d6;
 }
 
-.card input:focus {
-    font-size: small;
+.card input::placeholder {
+    font-style: italic;
+    color: #aaa;
 }
 
 .card input[type=checkbox] {
@@ -90,4 +93,5 @@
     display: block;
     text-align: right;
     padding: 10px 15px 10px 0;
+    cursor: pointer;
 }
