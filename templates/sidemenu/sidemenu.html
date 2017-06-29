@@ -2,10 +2,11 @@
     <div class="card--control__content card--control__relations" data-content-export>
         <p>Export Relations</p>
         <a id="exportBtn" href="/"><img src="/img/export.svg"></a>
-        <input type="number" placeholder="Probability Threshold" step="0.05" min="0" max="1">
+        <input type="number" placeholder="Probability Threshold" step="0.05" min="0" max="1" data-probability-threshold>
         </datalist>
     </div>
     <div class="card--control__cities card--control__content" data-content-cities>
+        <p>Cities</p>
         <div class="card--control__content--header">
             {% include 'slider/population.html' %}
 
@@ -17,6 +18,7 @@
     </div>
 
     <div class="card--control__content">
+        <p>Relations</p>
         <div class="card--control__relations" data-content-relations>
 
         </div>
