@@ -24,17 +24,17 @@ CITY_SEARCH.addEventListener('input', (e) => {
     filterCityList(e.target.value.toUpperCase())
 })
 
-
-BUTTON_CITIES.addEventListener('click', (e) => {
-    CONTENT_CITIES.classList.remove('hidden')
-    CONTENT_RELATIONS.classList.add('hidden')
-})
-
-
-BUTTON_RELATIONS.addEventListener('click', (e) => {
-    CONTENT_CITIES.classList.add('hidden')
-    CONTENT_RELATIONS.classList.remove('hidden')
-})
+// 
+// BUTTON_CITIES.addEventListener('click', (e) => {
+//     CONTENT_CITIES.classList.remove('hidden')
+//     CONTENT_RELATIONS.classList.add('hidden')
+// })
+//
+//
+// BUTTON_RELATIONS.addEventListener('click', (e) => {
+//     CONTENT_CITIES.classList.add('hidden')
+//     CONTENT_RELATIONS.classList.remove('hidden')
+// })
 
 
 function createCityList(cities) {

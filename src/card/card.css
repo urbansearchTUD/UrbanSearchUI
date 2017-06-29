@@ -33,6 +33,7 @@
     width: 100%;
     text-align: center;
     color: #00a6d6;
+    background-color: white;
 }
 
 .card input {
@@ -79,4 +80,10 @@
 
 .card--control__content.hidden {
     display: none;
+}
+
+.card--close {
+    display: block;
+    text-align: right;
+    padding: 10px 15px 10px 0;
 }

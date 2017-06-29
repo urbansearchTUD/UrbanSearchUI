@@ -9,7 +9,7 @@ module.exports = {
     output: {
         filename: './dist/js/[name].bundle.js'
     },
-    plugins: [
-    new BabiliPlugin()
-  ]
+    // plugins: [
+    //     new BabiliPlugin()
+    // ]
 }

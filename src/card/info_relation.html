@@ -1,8 +1,11 @@
-<table class="card--table__info">
-    {% for key, value in data %}
-    <tr>
-        <td class="table--info__key">{{key}}</td>
-        <td>{{value.name if value.name else value.current}}</td>
-    </tr>
-    {% endfor %}
-</table>
+<section class="card--control__content">
+    <span class="card--close" data-card-close>X</span>
+    <table class="card--table__info">
+        {% for key, value in data %}
+        <tr>
+            <td class="table--info__key">{{key}}</td>
+            <td>{{value.name if value.name else value.current}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>

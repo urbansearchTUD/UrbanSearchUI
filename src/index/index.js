@@ -11,6 +11,7 @@ const transforms = require('../relations/transforms')
 const googleMap = map.initMap('map')
 var MARKERS = null;
 const RELATIONS_ACTIVE = relations.relationDict(true)
+const SIDEMENU = document.querySelector('[data-sidemenu]');
 
 function cityClick(cityId) {
     const marker = MARKERS[cityId]
@@ -30,7 +31,7 @@ function popSliderUpdate(range) {
 }
 
 function relationClick(relation) {
-    infocard.relationInfo(relation)
+    SIDEMENU.insertBefore(infocard.relationInfo(relation), SIDEMENU.firstChild)
 }
 
 function transformCallback(e) {

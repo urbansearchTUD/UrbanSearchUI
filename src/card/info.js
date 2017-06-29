@@ -1,16 +1,15 @@
+const {initCard} = require('./card')
 const nunjucks = require('nunjucks')
 
 const INFO_CARD = document.querySelector('[data-info-card]')
 const CLOSE_BUTTON = document.querySelector('[data-info-button-close]')
 
-CLOSE_BUTTON.addEventListener('click', (e) => {
-    INFO_CARD.setAttribute("hidden", true);
-})
+// CLOSE_BUTTON.addEventListener('click', (e) => {
+//     INFO_CARD.setAttribute("hidden", true);
+// })
 
 function renderData(data) {
-    const html = nunjucks.render('card/info.html', {'data': data})
-    INFO_CARD.querySelector('.card--content').innerHTML = html
-    INFO_CARD.removeAttribute("hidden");
+    return nunjucks.render('card/info.html', {'data': data})
 }
 
 function markerInfo(marker) {
@@ -21,7 +20,9 @@ function markerInfo(marker) {
 }
 
 function relationInfo(relation) {
-    renderData(relation)
+    return initCard(nunjucks.render('card/info_relation.html', {
+        'data': relation
+    }))
 }
 
 
