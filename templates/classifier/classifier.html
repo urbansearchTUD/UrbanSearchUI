@@ -8,7 +8,17 @@
 {% endblock %}
 
 {% block main %}
-<section class="section__main--classifier">
+<section class="section__train--classifier">
+    <h1>Train a Classifier</h1>
+    <p>
+        Hit the train button below to retrain the
+        default system classifier with the current dataset
+    </p>
+    <button type="button" name="train" data-train-button>Train!</button>
+</section>
+
+<section class="section__data--classifier">
+    <!-- <h1>Classifier Numbers</h1> -->
     <article class="card__data" data-numberof-classifiers>
         <span class="card__data--count">{{classifier_count}}</span>
         <span class="card__data--explain">Categories</span>
@@ -27,7 +37,7 @@
     {% for category, length in lengths %}
     <article class="card__data">
         <span class="card__data--count">{{length}}</span>
-        <span class="card__data--explain">Documents in category {{category}}</span>
+        <span class="card__data--explain">Documents in total in the <strong>{{category}}</strong> category</span>
     </article>
     {% endfor %}
 </section>

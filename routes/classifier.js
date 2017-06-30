@@ -12,9 +12,8 @@ router.get('/', (req, res, next) => {
     .then((response) => {
         const json = JSON.parse(response)
         const data = {}
+        
         data.lengths = JSON.parse(json.lengths.replace(/\'/g, '\"'))
-        console.log(data.lengths);
-        console.log(typeof data.lengths);
         data.classifier_count = Object.keys(data.lengths).length
         data.doc_count = Object.values(data.lengths)
 
