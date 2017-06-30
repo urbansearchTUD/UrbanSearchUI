@@ -2,6 +2,7 @@ const BabiliPlugin = require("babili-webpack-plugin");
 
 module.exports = {
   entry: {
+        'classifier': './src/classifier/classifier.js',
         'classify': './src/classify/classify.js',
         'index': './src/index/index.js',
         'settings': './src/settings/settings.js',

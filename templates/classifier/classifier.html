@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}UrbanSearch{% endblock %}
+
+{% block header %}
+        <h1>UrbanSearch</h1>
+        <img class="header--page__img" src="/img/tu-delft.svg" alt="TU Delft logo">
+{% endblock %}
+
+{% block main %}
+<section class="section__main--classifier">
+    <article class="card__data" data-numberof-classifiers>
+        <span class="card__data--count">{{classifier_count}}</span>
+        <span class="card__data--explain">Categories</span>
+    </article>
+
+    <article class="card__data" data-total-docs>
+        <span class="card__data--count">{{doc_count | sum}}</span>
+        <span class="card__data--explain">Total documents in our dataset</span>
+    </article>
+
+    <article class="card__data" data-smallest-set>
+        <span class="card__data--count">{{doc_count | sort | first }}</span>
+        <span class="card__data--explain">Documents in our smallest dataset</span>
+    </article>
+
+    {% for category, length in lengths %}
+    <article class="card__data">
+        <span class="card__data--count">{{length}}</span>
+        <span class="card__data--explain">Documents in category {{category}}</span>
+    </article>
+    {% endfor %}
+</section>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="/js/classifier.bundle.js"></script>
+{% endblock %}
