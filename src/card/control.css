@@ -16,8 +16,8 @@
     flex-grow: 1;
     max-height: 400px;
     background-color: white;
-    margin-bottom: 10px;
-    margin-top: 5px;
+    margin-bottom: 15px;
+    margin-top: 10px;
     padding: 10px 10px;
     width: 94%;
     margin-left: 3%;
@@ -28,7 +28,7 @@
 
 .card--control__content.card--control__relation {
     overflow-x: auto;
-    height: 350px;
+    height: 400px;
     transition: all .8s cubic-bezier(.25,.8,.25,1);
 }
 

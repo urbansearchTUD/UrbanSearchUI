@@ -36,7 +36,7 @@ function relationClick(relation) {
     SIDEMENU.insertBefore(el, SIDEMENU.firstChild)
     setTimeout(() => {
         SIDEMENU.firstChild.classList.remove('init')
-    }, 50);
+    }, 10);
 }
 
 function transformCallback(e) {
