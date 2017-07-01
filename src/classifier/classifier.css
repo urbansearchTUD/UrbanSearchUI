@@ -2,9 +2,11 @@
     font-weight: lighter;
 }
 
-.section__train--classifier h1 {
+.section__train--classifier h1, .section__data--classifier h1 {
     font-weight: lighter;
     font-size: 48px;
+    width: 100%;
+    text-align: center;
 }
 
 .section__train--classifier button {
@@ -38,7 +40,7 @@
     display: flex;
     background-color: white;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
     padding: 5px 100px;
     box-sizing: border-box;
 }
@@ -50,6 +52,23 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     border-radius: 3px;
     border: 3px solid #ECFAFF;
+    flex-grow: 1;
+}
+
+.card__data.green {
+    border-color: #D6F8DE;
+}
+
+.card__data.blue {
+    border-color: #D0E6FF;
+}
+
+.card__data.red {
+    border-color: #FFC8C8;
+}
+
+.card__data.yellow {
+    border-color: #FFFBDF;
 }
 
 .card__data--count {

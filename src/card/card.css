@@ -20,9 +20,9 @@
 .card p {
     text-align: center;
     color: #444;
-    font-size: larger;
+    font-size: x-large;
     font-weight: lighter;
-    margin: 8px 0;
+    margin: 0px 0px 10px 0;
 }
 
 .card span.hint {
@@ -30,6 +30,7 @@
     font-weight: lighter;
     padding: 10px 0;
     display: block;
+    text-align: center;
 }
 
 .card nav {
@@ -50,7 +51,7 @@
     width: 94%;
     margin-left: 3%;
     border: 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ddd;
     padding: 10px 0;
     font-size: medium;
     transition: font 0.3s ease;

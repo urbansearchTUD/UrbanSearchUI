@@ -9,7 +9,12 @@
     </head>
 
     <body>
-        <header class="header--page">{% block header %}{% endblock %}</header>
+        <header class="header--page">
+            <header class="header--page">
+                <h1 onclick="window.location='/'">UrbanSearch</h1>
+                <img class="header--page__img" src="/img/tu-delft.svg" alt="TU Delft logo">
+            </header>
+        </header>
         <main>{% block main %}{% endblock %}</main>
         {% block sections %}{% endblock %}
         {% block scripts %}{% endblock %}

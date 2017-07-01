@@ -3,7 +3,7 @@
     top: calc(65px);
     left: 0px;
     height: calc(100vh - 65px);
-    width: 330px;
+    width: 350px;
     overflow-y: auto;
     flex-direction: column;
 }

@@ -17,8 +17,9 @@
     <button type="button" name="train" data-train-button>Train!</button>
 </section>
 
+
 <section class="section__data--classifier">
-    <!-- <h1>Classifier Numbers</h1> -->
+    <h1>Classifier Numbers</h1>
     <article class="card__data" data-numberof-classifiers>
         <span class="card__data--count">{{classifier_count}}</span>
         <span class="card__data--explain">Categories</span>
@@ -35,9 +36,11 @@
     </article>
 
     {% for category, length in lengths %}
-    <article class="card__data">
+    <article class="card__data {{['blue', 'green', 'red', 'yellow'] | random }}">
         <span class="card__data--count">{{length}}</span>
-        <span class="card__data--explain">Documents in total in the <strong>{{category}}</strong> category</span>
+        <span class="card__data--explain">
+            Documents in total in the <strong class={{['blue', 'green', 'red', 'yellow'] | random }}>{{category}}</strong> category
+        </span>
     </article>
     {% endfor %}
 </section>

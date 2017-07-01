@@ -1,0 +1,12 @@
+.loader--reldocs {
+
+}
+
+.loader--reldocs.hide {
+    display: none;
+}
+
+svg path,
+svg rect{
+  fill: #D81B60;
+}

@@ -1,0 +1,14 @@
+<section class="card--control__content card--control__relation init">
+    <span class="card--close" data-card-close>X</span>
+    <span class="hint">Extracted Documents for Relation</span>
+    <p>{{from}} - {{to}}</p>
+    <ul class="list--relation-documents">
+        {% for doc in documents %}
+        <li class={% for c,v in doc.categories %}{{c}}{% endfor %} {% for c,v in doc.categories %}{% if c === "other" %}hidden{% endif %}{% endfor %}>
+            <a class="button--document" href={{ "http://citynetworks.bk.tudelft.nl/api/v1/documents/download?digest=" + doc.digest }} download>
+                {% for c,v in doc.categories %}{{c}} <span>{{v | round(3)}}</span>{% endfor %}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</section>

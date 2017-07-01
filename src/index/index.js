@@ -6,13 +6,15 @@ const infocard = require('../card/info')
 const slider = require('../slider/slider')
 const neo4jutils = require('../neo4j_utils/neo4j_utils')
 const relations = require('../relations/relations')
+const relDocs = require('../relations/documents')
 const transforms = require('../relations/transforms')
 const exporter = require('../export/export')
 
 const googleMap = map.initMap('map')
-var MARKERS = null;
+var MARKERS = null
+const LOADER_RELDOCS = document.querySelector('[data-loader-reldocs]')
 const RELATIONS_ACTIVE = relations.relationDict(true)
-const SIDEMENU = document.querySelector('[data-sidemenu]');
+const SIDEMENU = document.querySelector('[data-sidemenu]')
 
 function cityClick(cityId) {
     const marker = MARKERS[cityId]
@@ -32,16 +34,60 @@ function popSliderUpdate(range) {
 }
 
 function relationClick(relation) {
-    const el = infocard.relationInfo(relation)
-    SIDEMENU.insertBefore(el, SIDEMENU.firstChild)
+    const html = infocard.relationInfo(relation, {})
+    console.log(html.querySelector('[data-documentget-button]'));
+    html.querySelector('[data-documentget-button]').addEventListener('click', (e) => {
+        relationDocs(relation)
+    })
+    const el = SIDEMENU.insertBefore(html, SIDEMENU.firstChild)
     setTimeout(() => {
         SIDEMENU.firstChild.classList.remove('init')
     }, 10);
 }
 
+function relationDocs(relation) {
+    scrollSidemenuTop()
+    loaderReldocs(true)
+    relDocs.getRelations(relation)
+    .then((json) => {
+        var t0 = performance.now();
+        const html = infocard.relationDocs({
+            documents: json.documents,
+            from: relation.from.name,
+            to: relation.to.name
+        })
+        SIDEMENU.insertBefore(html, SIDEMENU.firstChild)
+        var t1 = performance.now();
+        console.log(t1-t0);
+        loaderReldocs(false)
+        setTimeout(() => {
+            SIDEMENU.firstChild.classList.remove('init')
+        }, 10);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+
+}
+
+function scrollSidemenuTop() {
+    SIDEMENU.scrollTop = 0;
+}
+
+function loaderReldocs(show) {
+    if(show) {
+        SIDEMENU.insertBefore(LOADER_RELDOCS, SIDEMENU.firstChild)
+        LOADER_RELDOCS.classList.remove('hide')
+    }
+    else {
+        LOADER_RELDOCS.classList.add('hide')
+    }
+}
+
 function transformCallback(e) {
     transforms[e.target.value](relations.getRelations())
 }
+
 
 neo4jutils.getCities()
     .then(cities => {

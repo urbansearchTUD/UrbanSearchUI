@@ -1,5 +1,7 @@
 <section class="card--control__content card--control__relation init">
     <span class="card--close" data-card-close>X</span>
+    <span class="hint">Scores for Relation</span>
+    <p>{{data.from.name}} - {{data.to.name}}</p>
     <table class="card--table__info">
         {% for key, value in data %}
         <tr>
@@ -8,4 +10,6 @@
         </tr>
         {% endfor %}
     </table>
+    <span class="hint">Interested in the documents that were blabal</span>
+    <button type="button" name="get_doc" data-documentget-button>Get Documents</button>
 </section>
