@@ -1,6 +1,8 @@
-const API_BASE_URL = 'http://citynetworks.bk/tudelft.nl/api/v1'
-const API_APPEND_ALL_PATH = API_BASE_URL + '/datasets/append_all'
-const API_DOCUMENT_PATH =  API_BASE_URL + '/documents/'
+const config = require('../../config')
+
+const API_URL = config.get('api_url')
+const API_APPEND_ALL_PATH = API_URL + '/datasets/append_all'
+const API_DOCUMENT_PATH =  API_URL + '/documents/'
 const EL = {}
 
 
