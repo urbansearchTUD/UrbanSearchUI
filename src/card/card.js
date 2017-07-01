@@ -8,6 +8,8 @@ function createCityList(cities) {
 
 function close(card) {
     card.querySelector('[data-card-close]').addEventListener('click', (e) => {
+        console.log(e.target.parentNode);
+        e.target.parentNode.classList.add('hidden')
         e.target.parentNode.parentNode.removeChild(e.target.parentNode)
     })
 }

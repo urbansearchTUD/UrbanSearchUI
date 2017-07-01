@@ -97,6 +97,7 @@ function getRelationMax() {
 }
 
 function getRelationVisibility(relation) {
+    console.log('RELATION', relation);
     return CATEGORIES.reduce((result, category) => {
         return (result && relation[category].visible)
     }, true)
@@ -170,9 +171,9 @@ function updateRelationMax(relation) {
 function updateRelationVisibility(relation, rel_name, value) {
     const rel = relation.rel
 
-    rel[rel_name].visibile = rel[rel_name].current >= value
+    rel[rel_name].visible = rel[rel_name].current >= value
 
-    if(rel[rel_name].visibile) {
+    if(rel[rel_name].visible) {
         relation.setVisible(getRelationVisibility(rel))
     } else {
         relation.setVisible(false)
