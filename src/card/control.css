@@ -26,6 +26,10 @@
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
+.card--control__content.hidden {
+    display: none;
+}
+
 .card--control__content.card--control__relation {
     overflow-x: auto;
     height: 400px;
