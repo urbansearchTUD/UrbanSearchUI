@@ -1,7 +1,7 @@
 const watcher = require('watch-object')
 const config = require('../../config')
 const LINE_OPTS = {
-    // geodesic: true,
+    geodesic: true,
     strokeColor: '#00a6d6',
     strokeOpacity: 1,
     strokeWeight: 6,

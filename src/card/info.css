@@ -31,3 +31,59 @@
     margin-right: auto;
     padding: 5px 0px;
 }
+
+.list--relation-documents {
+    list-style: none;
+    padding: 0
+}
+
+.list--relation-documents li{
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    cursor: pointer;
+}
+
+.list--relation-documents li.shopping{
+    background-color: #F9D9FF;
+}
+
+.list--relation-documents li.residential_mobility{
+    background-color: #E0EAF8;
+}
+
+.list--relation-documents li.commuting{
+    background-color: #BDFFEA;
+}
+
+.list--relation-documents li.leisure{
+    background-color: #FFFFD7;
+}
+
+.list--relation-documents li.transportation{
+    background-color: #D2FFC4;
+}
+
+.list--relation-documents li.education{
+    background-color: #C9EAF3;
+}
+
+.list--relation-documents li.collaboration{
+    background-color: #F8DAE2;
+}
+
+.list--relation-documents li.other{
+    background-color: #F0DDD5;
+}
+
+a.button--document {
+    width: 100%;
+    text-align: left;
+    color: #444;
+    text-decoration: none;
+    font-weight: lighter;
+}
+
+.button--document span {
+    float: right;
+}

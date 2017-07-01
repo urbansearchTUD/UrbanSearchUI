@@ -19,6 +19,11 @@ function markerInfo(marker) {
     })
 }
 
+function relationDocs(data) {
+    const card = initCard(nunjucks.render('card/info_relationdocs.html', data))
+    return card
+}
+
 function relationInfo(relation) {
     return initCard(nunjucks.render('card/info_relation.html', {
         'data': relation
@@ -28,5 +33,6 @@ function relationInfo(relation) {
 
 module.exports = {
     markerInfo,
+    relationDocs,
     relationInfo
 }
