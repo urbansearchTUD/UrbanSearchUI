@@ -102,12 +102,12 @@ function transformCallback(e) {
 
 neo4jutils.getCities()
 .then(cities => {
-MARKERS = markers.createAll({
-    'map': googleMap,
-    'cities': cities,
-    'click': markerClick
-})
-return cities
+    MARKERS = markers.createAll({
+        'map': googleMap,
+        'cities': cities,
+        'click': markerClick
+    })
+    return cities
 })
 .then((cities) => {
     controlcard.initCityList({
@@ -142,4 +142,6 @@ return cities
         relations: relations.getRelationMax(),
         transform: transformCallback
     })
+}).catch((err) => {
+    console.log(err)
 })
