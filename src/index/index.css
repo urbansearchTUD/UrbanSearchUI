@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'PageFont';
+  src: url('/fonts/Oxygen-Light.ttf') format('truetype');
+}
+
+* {
+    font-family: 'PageFont';
+}
+
 body {
     width: 100vw;
     height: 100vh;

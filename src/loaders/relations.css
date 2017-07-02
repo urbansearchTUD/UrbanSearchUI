@@ -1,0 +1,13 @@
+.loader--relations {
+    position: fixed;
+    top: 65px;
+    left: 350px;
+    padding: 12% 5px 0 5PX;
+    background-color: rgba(0,0,0,0.1);
+    width: calc(100% - 350px);
+    height: calc(100% - 65px);
+    color: #444;
+    font-weight: lighter;
+    font-size: xx-large;
+    text-shadow: 1px 1px #eee;
+}

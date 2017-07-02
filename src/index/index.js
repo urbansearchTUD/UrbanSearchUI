@@ -12,6 +12,7 @@ const exporter = require('../export/export')
 
 const googleMap = map.initMap('map')
 var MARKERS = null
+const LOADER_RELATIONS = document.querySelector('[data-loader-relations]')
 const LOADER_RELDOCS = document.querySelector('[data-loader-reldocs]')
 const RELATIONS_ACTIVE = relations.relationDict(true)
 const SIDEMENU = document.querySelector('[data-sidemenu]')
@@ -23,6 +24,7 @@ function cityClick(cityId) {
 
 function markerClick(marker) {
     marker.selected = !marker.selected
+    marker.selected ? marker.setOpacity(0.95) : marker.setOpacity(0.5)
 }
 
 function popSliderUpdate(range) {
@@ -50,14 +52,14 @@ function relationDocs(relation) {
     loaderReldocs(true)
     relDocs.getRelations(relation)
     .then((json) => {
-        var t0 = performance.now();
+        const t0 = performance.now();
         const html = infocard.relationDocs({
             documents: json.documents,
             from: relation.from.name,
             to: relation.to.name
         })
         SIDEMENU.insertBefore(html, SIDEMENU.firstChild)
-        var t1 = performance.now();
+        const t1 = performance.now();
         console.log(t1-t0);
         loaderReldocs(false)
         setTimeout(() => {
@@ -72,6 +74,17 @@ function relationDocs(relation) {
 
 function scrollSidemenuTop() {
     SIDEMENU.scrollTop = 0;
+}
+
+function loaderRelations(show) {
+    if(show) {
+        console.log("SHOW");
+        LOADER_RELATIONS.classList.remove('hide')
+    }
+    else {
+        console.log("HIDE");
+        LOADER_RELATIONS.classList.add('hide')
+    }
 }
 
 function loaderReldocs(show) {
@@ -90,42 +103,45 @@ function transformCallback(e) {
 
 
 neo4jutils.getCities()
-    .then(cities => {
-    MARKERS = markers.createAll({
-        'map': googleMap,
+.then(cities => {
+MARKERS = markers.createAll({
+    'map': googleMap,
+    'cities': cities,
+    'click': markerClick
+})
+return cities
+})
+.then((cities) => {
+    controlcard.initCityList({
         'cities': cities,
-        'click': markerClick
+        'click': cityClick,
     })
-    return cities
+})
+.then(() => {
+    // Must happen after MARKER filling and city list creation
+    slider.createPopulationSlider({
+        'callback': popSliderUpdate,
     })
-    .then((cities) => {
-        controlcard.initCityList({
-            'cities': cities,
-            'click': cityClick,
-        })
+    controlcard.filterCityList()
+})
+.then(() => {
+    loaderRelations(true)
+    return neo4jutils.getICRelations()
+})
+.then(icRels => {
+    console.log('CLOSEs');
+    loaderRelations(false)
+    relations.createAll({
+        'map': googleMap,
+        'markers': MARKERS,
+        'relations': icRels,
+        'click': relationClick,
+        'visible': false
     })
-    .then(() => {
-        // Must happen after MARKER filling and city list creation
-        slider.createPopulationSlider({
-            'callback': popSliderUpdate,
-        })
-        controlcard.filterCityList()
+})
+.then(() => {
+    controlcard.initRelationList({
+        relations: relations.getRelationMax(),
+        transform: transformCallback
     })
-    .then(() => {
-        return neo4jutils.getICRelations()
-    })
-    .then(icRels => {
-        relations.createAll({
-            'map': googleMap,
-            'markers': MARKERS,
-            'relations': icRels,
-            'click': relationClick,
-            'visible': false
-        })
-    })
-    .then(() => {
-        controlcard.initRelationList({
-            relations: relations.getRelationMax(),
-            transform: transformCallback
-        })
-    })
+})

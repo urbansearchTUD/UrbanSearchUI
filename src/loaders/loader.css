@@ -4,3 +4,7 @@
     margin: 0 auto 1em;
     display: block;
 }
+
+.loader.hide {
+    display: none;
+}
