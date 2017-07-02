@@ -29,6 +29,7 @@ function classifyDocument(data) {
 }
 
 function getDocument() {
+    EL.pre.scrollTop = 0
     return fetch(API_DOCUMENT_PATH)
         .then((response) => {
             return response.json()
