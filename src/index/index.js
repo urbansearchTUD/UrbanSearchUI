@@ -50,18 +50,18 @@ function relationClick(relation) {
 function relationDocs(relation) {
     scrollSidemenuTop()
     loaderReldocs(true)
+
     relDocs.getRelations(relation)
     .then((json) => {
-        const t0 = performance.now();
         const html = infocard.relationDocs({
             documents: json.documents,
             from: relation.from.name,
             to: relation.to.name
         })
+
         SIDEMENU.insertBefore(html, SIDEMENU.firstChild)
-        const t1 = performance.now();
-        console.log(t1-t0);
         loaderReldocs(false)
+
         setTimeout(() => {
             SIDEMENU.firstChild.classList.remove('init')
         }, 10);
@@ -78,11 +78,9 @@ function scrollSidemenuTop() {
 
 function loaderRelations(show) {
     if(show) {
-        console.log("SHOW");
         LOADER_RELATIONS.classList.remove('hide')
     }
     else {
-        console.log("HIDE");
         LOADER_RELATIONS.classList.add('hide')
     }
 }

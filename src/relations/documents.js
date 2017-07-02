@@ -1,4 +1,6 @@
-const API_URL = 'http://citynetworks.bk.tudelft.nl/api/v1'
+const config = require('../../config')
+
+const API_URL = config.get('api_url')
 const GET_PATH = '/relations/document_info'
 
 function getRelations(relation) {
