@@ -97,6 +97,7 @@ function getRelationMax() {
 }
 
 function getRelationVisibility(relation) {
+    console.log('RELATION', relation);
     return CATEGORIES.reduce((result, category) => {
         return (result && relation[category].visible)
     }, true)
