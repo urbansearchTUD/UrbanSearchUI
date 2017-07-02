@@ -40,14 +40,14 @@ function popSliderUpdate(range) {
 
 function relationClick(relation) {
     const html = infocard.relationInfo(relation, {})
-
+    
     html.querySelector('[data-documentget-button]').addEventListener('click', (e) => {
         relationDocs(relation)
     })
 
     const card = html.querySelector('.card--control__content')
     SIDEMENU.insertBefore(html, SIDEMENU.firstChild)
-
+  
     setTimeout(() => {
         card.classList.remove('init')
     }, 10);
@@ -109,12 +109,13 @@ function transformCallback(e) {
 
 neo4jutils.getCities()
 .then(cities => {
-MARKERS = markers.createAll({
-    'map': googleMap,
-    'cities': cities,
-    'click': markerClick
-})
-return cities
+    MARKERS = markers.createAll({
+        'map': googleMap,
+        'cities': cities,
+        'click': cityClick,
+    })
+
+    return cities
 })
 .then((cities) => {
     controlcard.initCityList({
@@ -134,6 +135,8 @@ return cities
     return neo4jutils.getICRelations()
 })
 .then(icRels => {
+    console.log('CLOSEs');
+    loaderRelations(false)
     relations.createAll({
         'map': googleMap,
         'markers': MARKERS,
@@ -148,4 +151,7 @@ return cities
         relations: relations.getRelationMax(),
         transform: transformCallback
     })
+})
+.catch((err) => {
+    console.log(err)
 })
