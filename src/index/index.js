@@ -40,14 +40,14 @@ function popSliderUpdate(range) {
 
 function relationClick(relation) {
     const html = infocard.relationInfo(relation, {})
-    
+
     html.querySelector('[data-documentget-button]').addEventListener('click', (e) => {
         relationDocs(relation)
     })
 
     const card = html.querySelector('.card--control__content')
     SIDEMENU.insertBefore(html, SIDEMENU.firstChild)
-  
+
     setTimeout(() => {
         card.classList.remove('init')
     }, 10);
@@ -59,6 +59,7 @@ function relationDocs(relation) {
 
     relDocs.getRelations(relation)
     .then((json) => {
+        console.log(json.documents.length);
         const html = infocard.relationDocs({
             documents: json.documents,
             from: relation.from.name,
@@ -102,6 +103,41 @@ function loaderReldocs(show) {
     }
 }
 
+function toggleActive(category, active) {
+    // transforms['activeToggle'](relations.getRelations(), category, value)
+    const max = {}
+    const old_max = {}
+    const rels = relations.getRelations()
+
+    console.log('deactivate: ' + category);
+
+    for(let r in rels) {
+        let relation = rels[r].rel
+        relations.calculateMax(old_max, relation)
+
+        if(active && category === 'total') {
+            relation['total'].current = relation['total'].current + relation[category].original
+        }
+        else if(active) {
+            relation['total'].current = relation['total'].current + relation[category].current
+        }
+        else {
+            relation['total'].current = relation['total'].current - relation[category].current
+        }
+
+        relations.calculateMax(max, relation)
+    }
+
+    console.log(old_max);
+    console.log(max);
+
+    for(let r in rels) {
+        rels[r].setOptions({
+            strokeOpacity: Math.sqrt(rels[r].rel.total.current/max.total)
+        })
+    }
+}
+
 function transformCallback(e) {
     transforms[e.target.value](relations.getRelations())
 }
@@ -112,7 +148,7 @@ neo4jutils.getCities()
     MARKERS = markers.createAll({
         'map': googleMap,
         'cities': cities,
-        'click': cityClick,
+        'click': markerClick,
     })
 
     return cities
@@ -135,20 +171,23 @@ neo4jutils.getCities()
     return neo4jutils.getICRelations()
 })
 .then(icRels => {
-    console.log('CLOSEs');
+    console.log(icRels.length)
     loaderRelations(false)
-    relations.createAll({
+    const rels = relations.createAll({
         'map': googleMap,
         'markers': MARKERS,
         'relations': icRels,
         'click': relationClick,
         'visible': false
     })
+
+    localStorage.setItem("yolo", rels);
 })
 .then(() => {
     loaderRelations(false)
     controlcard.initRelationList({
         relations: relations.getRelationMax(),
+        toggleActive: toggleActive,
         transform: transformCallback
     })
 })

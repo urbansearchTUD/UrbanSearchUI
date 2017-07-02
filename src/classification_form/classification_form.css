@@ -1,6 +1,6 @@
 .form-classification {
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 65px);
     overflow: hidden;
     margin: auto;
     background-color: #fff;
@@ -90,6 +90,11 @@
     cursor: pointer;
     font-family: sans-serif;
     font-weight: lighter;
+}
+
+.button--category:hover {
+    background-color: #eee;
+    color: #00a6d6;
 }
 
 .button--category.selected {

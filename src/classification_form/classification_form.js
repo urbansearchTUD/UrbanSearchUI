@@ -1,6 +1,7 @@
 const config = require('../../config')
 
 const API_URL = config.get('api_url')
+// const API_URL = 'http://127.0.0.1:5000/api/v1'
 const API_APPEND_ALL_PATH = API_URL + '/datasets/append_all'
 const API_DOCUMENT_PATH =  API_URL + '/documents/'
 const EL = {}
@@ -36,7 +37,7 @@ function getDocument() {
         })
         .then((data) => {
             let doc = data['document'].replace(/{.*}/g, '')
-            return doc.replace('\n', '\b')
+            return doc
         })
         .catch((err) => {
             console.log(err);

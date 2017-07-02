@@ -30,11 +30,10 @@ function createCityList(cities) {
 }
 
 
-function initCategoryActive() {
+function initCategoryActive(options) {
     document.querySelectorAll('[data-category-active]').forEach((el) => {
         el.addEventListener('change', (e) => {
-            console.log(e.target.value);
-            console.log(e.target.checked);
+            options.toggleActive(e.target.value, e.target.checked)
         })
     })
 }
@@ -58,7 +57,7 @@ function initRelationList(options) {
     CONTENT_RELATIONS.innerHTML = CONTENT_RELATIONS.innerHTML + html
     initRelationSliders()
     initRelationTransform(options.transform)
-    initCategoryActive()
+    initCategoryActive(options)
 }
 
 function initRelationTransform(cb) {

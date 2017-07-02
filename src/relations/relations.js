@@ -3,7 +3,6 @@ const config = require('../../config')
 const LINE_OPTS = {
     geodesic: true,
     strokeColor: '#00a6d6',
-    strokeOpacity: 1,
     strokeWeight: 6,
     zindex: 5
 }
@@ -54,6 +53,15 @@ function addWatcher(path, markerA, markerB) {
     })
 }
 
+function calculateMax(max, r) {
+    CATEGORIES.forEach((c) => {
+        if(!max[c] || r[c].current > max[c]) {
+            max[c] = r[c].current
+        }
+    })
+
+    return max
+}
 
 function create(options) {
     if (options.rel.from.id === options.rel.to.id) {
@@ -97,7 +105,6 @@ function getRelationMax() {
 }
 
 function getRelationVisibility(relation) {
-    console.log('RELATION', relation);
     return CATEGORIES.reduce((result, category) => {
         return (result && relation[category].visible)
     }, true)
@@ -108,6 +115,7 @@ function ICRelation(options) {
         {lat: options.rel.from.lat, lng: options.rel.from.lng},
         {lat: options.rel.to.lat, lng: options.rel.to.lng}
     ]
+    LINE_OPTS['strokeOpacity'] = Math.sqrt(options.rel['total'] / MAX_RELATION_VALUES.total)
 
     let flightPath = new google.maps.Polyline(LINE_OPTS)
 
@@ -115,7 +123,6 @@ function ICRelation(options) {
     flightPath.rel = rel(options.rel)
     flightPath.rel.from.population = options.markerFrom.city.population
     flightPath.rel.to.population = options.markerTo.city.population
-    flightPath.strokeOpacity = Math.sqrt(options.rel['total'] / MAX_RELATION_VALUES.total)
 
     if(typeof options.visible !== 'undefined') {
         flightPath.setVisible(options.visible)
@@ -127,7 +134,6 @@ function ICRelation(options) {
     flightPath.addListener('click', () => options.click(flightPath.rel))
     addInfoWindow(flightPath, options.rel.from.name, options.rel.to.name)
     addWatcher(flightPath, options.markerFrom, options.markerTo)
-
     return flightPath
 }
 
@@ -158,10 +164,6 @@ function updateMax(name, value) {
     }
 }
 
-function updateMaxTotal(total) {
-    updateMax('total', total)
-}
-
 function updateRelationMax(relation) {
     CATEGORIES.forEach((rel_name) => {
         updateMax(rel_name, relation[rel_name])
@@ -180,6 +182,12 @@ function updateRelationVisibility(relation, rel_name, value) {
     }
 }
 
+// function updateCategoryActive(category, value) {
+//     for(let rel in RELATIONS) {
+//         RELATIONS[rel].rel[category].active = value
+//     }
+// }
+
 function updateVisibility(rel_name, value) {
     for(let rel in RELATIONS) {
         updateRelationVisibility(RELATIONS[rel], rel_name, value)
@@ -187,6 +195,7 @@ function updateVisibility(rel_name, value) {
 }
 
 module.exports = {
+    calculateMax,
     createAll,
     getRelations,
     getRelationMax,
