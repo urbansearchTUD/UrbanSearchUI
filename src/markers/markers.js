@@ -46,7 +46,7 @@ function create(options) {
         position: {lat: city.latitude, lng: city.longitude},
         map: options.map,
         icon: scaledIcon(city.population),
-        opacity: .7,
+        opacity: .5,
         city: city,
         visible: city.population >= min && city.population <= max,
         selected: false

@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router()
 const rp = require('request-promise');
 
-const API_URL = 'http://127.0.0.1:5000/api/v1/'
+const API_URL = config.get('api_url')
 const LENGTHS_PATH = 'datasets/lengths'
 
 
@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
     .then((response) => {
         const json = JSON.parse(response)
         const data = {}
-        
+
         data.lengths = JSON.parse(json.lengths.replace(/\'/g, '\"'))
         data.classifier_count = Object.keys(data.lengths).length
         data.doc_count = Object.values(data.lengths)
@@ -20,7 +20,7 @@ router.get('/', (req, res, next) => {
         res.render('classifier/classifier', data)
     })
     .catch((err) => {
-        console.log(err);
+        console.log("err");
         next()
     })
 })
