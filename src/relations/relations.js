@@ -97,7 +97,6 @@ function getRelationMax() {
 }
 
 function getRelationVisibility(relation) {
-    console.log('RELATION', relation);
     return CATEGORIES.reduce((result, category) => {
         return (result && relation[category].visible)
     }, true)
@@ -163,7 +162,7 @@ function updateMaxTotal(total) {
 }
 
 function updateRelationMax(relation) {
-    config.get('rel_categories').forEach((rel_name) => {
+    CATEGORIES.forEach((rel_name) => {
         updateMax(rel_name, relation[rel_name])
     })
 }

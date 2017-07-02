@@ -10,8 +10,11 @@ const relDocs = require('../relations/documents')
 const transforms = require('../relations/transforms')
 const exporter = require('../export/export')
 
+// Module constants
 const googleMap = map.initMap('map')
 var MARKERS = null
+
+// Page elements
 const LOADER_RELATIONS = document.querySelector('[data-loader-relations]')
 const LOADER_RELDOCS = document.querySelector('[data-loader-reldocs]')
 const RELATIONS_ACTIVE = relations.relationDict(true)
@@ -37,13 +40,16 @@ function popSliderUpdate(range) {
 
 function relationClick(relation) {
     const html = infocard.relationInfo(relation, {})
-    console.log(html.querySelector('[data-documentget-button]'));
+
     html.querySelector('[data-documentget-button]').addEventListener('click', (e) => {
         relationDocs(relation)
     })
-    const el = SIDEMENU.insertBefore(html, SIDEMENU.firstChild)
+
+    const card = html.querySelector('.card--control__content')
+    SIDEMENU.insertBefore(html, SIDEMENU.firstChild)
+
     setTimeout(() => {
-        SIDEMENU.firstChild.classList.remove('init')
+        card.classList.remove('init')
     }, 10);
 }
 
@@ -59,11 +65,12 @@ function relationDocs(relation) {
             to: relation.to.name
         })
 
+        const card = html.querySelector('.card--control__content')
         SIDEMENU.insertBefore(html, SIDEMENU.firstChild)
-        loaderReldocs(false)
 
         setTimeout(() => {
-            SIDEMENU.firstChild.classList.remove('init')
+            card.classList.remove('init')
+            loaderReldocs(false)
         }, 10);
     })
     .catch((err) => {
@@ -127,8 +134,6 @@ return cities
     return neo4jutils.getICRelations()
 })
 .then(icRels => {
-    console.log('CLOSEs');
-    loaderRelations(false)
     relations.createAll({
         'map': googleMap,
         'markers': MARKERS,
@@ -138,6 +143,7 @@ return cities
     })
 })
 .then(() => {
+    loaderRelations(false)
     controlcard.initRelationList({
         relations: relations.getRelationMax(),
         transform: transformCallback

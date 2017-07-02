@@ -40,8 +40,6 @@ function transform(t, relations) {
         calculateMax(max, relations[r].rel)
     }
 
-    console.log(max.total);
-
     for(let r in relations) {
         relations[r].setOptions({
             strokeOpacity: Math.sqrt(relations[r].rel.total.current/max.total)

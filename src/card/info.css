@@ -25,6 +25,10 @@
     font-weight: lighter;
 }
 
+.table--info__value {
+    text-align: right;
+}
+
 .card--button__close {
     display: block;
     margin-left: auto;

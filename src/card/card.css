@@ -93,6 +93,10 @@
     font-weight: lighter;
 }
 
+.card--list__cities li:hover{
+    text-decoration: underline;
+}
+
 .card--list__hidden {
     display: none;
 }

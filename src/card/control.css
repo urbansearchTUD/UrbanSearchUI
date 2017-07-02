@@ -31,10 +31,12 @@
 }
 
 .card--control__content.card--control__relation {
-    overflow-x: auto;
+    overflow: hidden;
     height: 400px;
     transition: all .8s cubic-bezier(.25,.8,.25,1);
     padding-bottom: 70px;
+    cursor: pointer;
+    background-color: #eee;
 }
 
 .card--control__content.card--control__relation.init {
@@ -47,8 +49,11 @@
     height: 100%;
 }
 
-.card--control__content:hover {
+.card--control__content.card--control__relation.active {
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    overflow-y: auto;
+    cursor: auto;
+    background-color: #fff;
 }
 
 .card--control__cities, .card--control__relations {

@@ -10,4 +10,5 @@
     font-weight: lighter;
     font-size: xx-large;
     text-shadow: 1px 1px #eee;
+    cursor: not-allowed;
 }

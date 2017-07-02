@@ -8,7 +8,7 @@ function getRelations(relation) {
     const cityTo = relation.to.name
     const params = '?city_a=' + cityFrom + '&city_b=' + cityTo
     const url = API_URL+GET_PATH+params
-    console.log(url);
+
     return fetch(url)
     .then((response) => {
         return response.json();

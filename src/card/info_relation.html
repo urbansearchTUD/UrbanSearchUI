@@ -6,7 +6,7 @@
         {% for key, value in data %}
         <tr>
             <td class="table--info__key">{{key}}</td>
-            <td>{{value.name if value.name else value.current | float | round(4) }}</td>
+            <td class="table--info__value">{{value.name if value.name else value.current | float | round(4) }}</td>
         </tr>
         {% endfor %}
     </table>

@@ -1,4 +1,4 @@
-const {initCard} = require('./card')
+const {cardBlur, initCard} = require('./card')
 const nunjucks = require('nunjucks')
 
 const INFO_CARD = document.querySelector('[data-info-card]')

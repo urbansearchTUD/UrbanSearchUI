@@ -24,22 +24,11 @@ CITY_SEARCH.addEventListener('input', (e) => {
     filterCityList(e.target.value.toUpperCase())
 })
 
-//
-// BUTTON_CITIES.addEventListener('click', (e) => {
-//     CONTENT_CITIES.classList.remove('hidden')
-//     CONTENT_RELATIONS.classList.add('hidden')
-// })
-//
-//
-// BUTTON_RELATIONS.addEventListener('click', (e) => {
-//     CONTENT_CITIES.classList.add('hidden')
-//     CONTENT_RELATIONS.classList.remove('hidden')
-// })
-
 
 function createCityList(cities) {
     return nunjucks.render('card/citylist.html', {cities: cities})
 }
+
 
 function initCategoryActive() {
     document.querySelectorAll('[data-category-active]').forEach((el) => {
