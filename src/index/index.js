@@ -22,7 +22,7 @@ const SIDEMENU = document.querySelector('[data-sidemenu]')
 
 function cityClick(cityId) {
     const marker = MARKERS[cityId]
-    marker.setVisible(!marker.getVisible())
+    markerClick(marker)
 }
 
 function markerClick(marker) {
