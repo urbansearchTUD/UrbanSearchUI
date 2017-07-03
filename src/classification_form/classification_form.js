@@ -1,9 +1,9 @@
 const config = require('../../config')
 
-const API_URL = config.get('api_url')
-// const API_URL = 'http://127.0.0.1:5000/api/v1'
-const API_APPEND_ALL_PATH = API_URL + '/datasets/append_all'
-const API_DOCUMENT_PATH =  API_URL + '/documents/'
+// const API_BASE_URL = 'http://127.0.0.1:5000/api/v1'
+const API_BASE_URL = config.get('api_url')
+const API_APPEND_ALL_PATH = API_BASE_URL + '/datasets/append_all'
+const API_DOCUMENT_PATH =  API_BASE_URL + '/documents/'
 const EL = {}
 
 
@@ -17,7 +17,6 @@ function classifyDocument(data) {
         return response.json()
     })
     .then((json) => {
-        // should add error checking + handling
         return getDocument()
     })
     .then((doc) => {
@@ -30,14 +29,13 @@ function classifyDocument(data) {
 }
 
 function getDocument() {
-    EL.pre.scrollTop = 0
     return fetch(API_DOCUMENT_PATH)
         .then((response) => {
             return response.json()
         })
         .then((data) => {
             let doc = data['document'].replace(/{.*}/g, '')
-            return doc
+            return doc.replace('\n', '\b')
         })
         .catch((err) => {
             console.log(err);

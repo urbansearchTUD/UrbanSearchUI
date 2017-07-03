@@ -12,15 +12,6 @@ function calculateOccurence(relation, category) {
     return relation.rel[category].original
 }
 
-function calculateToggle(relation, category) {
-    if(true) {
-
-    }
-    else {
-
-    }
-}
-
 function calculateMax(max, r) {
     CATEGORIES.forEach((c) => {
         if(!max[c] || r[c].current > max[c]) {
@@ -59,9 +50,6 @@ function categoryActiveTransform(relations, category, value) {
 
         calculateMax(max, relation)
     }
-
-    console.log(old_max);
-    console.log(max);
 
     for(let r in relations) {
         relations[r].setOptions({
