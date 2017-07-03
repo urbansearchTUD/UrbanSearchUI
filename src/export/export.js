@@ -13,7 +13,7 @@ EXPORT_BUTTON.addEventListener('click', (e) => {
     const threshold = THRESHOLD.value
 
     if(threshold) {
-        document.location.href = EXPORT_BUTTON.href + '/' + THRESHOLD.value
+        document.location.href = EXPORT_BUTTON.href + '?threshold=' + THRESHOLD.value
     }
     else {
         document.location.href = EXPORT_BUTTON.href
