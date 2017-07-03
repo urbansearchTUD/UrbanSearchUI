@@ -182,12 +182,6 @@ function updateRelationVisibility(relation, rel_name, value) {
     }
 }
 
-// function updateCategoryActive(category, value) {
-//     for(let rel in RELATIONS) {
-//         RELATIONS[rel].rel[category].active = value
-//     }
-// }
-
 function updateVisibility(rel_name, value) {
     for(let rel in RELATIONS) {
         updateRelationVisibility(RELATIONS[rel], rel_name, value)

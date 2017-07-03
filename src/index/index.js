@@ -142,7 +142,7 @@ neo4jutils.getCities()
     MARKERS = markers.createAll({
         'map': googleMap,
         'cities': cities,
-        'click': markerClick,
+        'click': markerClick
     })
 
     return cities
@@ -150,7 +150,7 @@ neo4jutils.getCities()
 .then((cities) => {
     controlcard.initCityList({
         'cities': cities,
-        'click': cityClick,
+        'click': cityClick
     })
 })
 .then(() => {
