@@ -1,7 +1,7 @@
 const config = require('../../config')
 
 const API_URL = config.get('api_url')
-const GET_PATH = '/relations/document_info'
+const GET_PATH = 'relations/document_info'
 
 function getRelations(relation) {
     const cityFrom = relation.from.name

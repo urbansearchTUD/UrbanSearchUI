@@ -39,6 +39,7 @@ function popSliderUpdate(range) {
 }
 
 function relationClick(relation) {
+    console.log(relation);
     const html = infocard.relationInfo(relation, {})
 
     html.querySelector('[data-documentget-button]').addEventListener('click', (e) => {
@@ -113,7 +114,7 @@ function toggleActive(category, active) {
         relations.calculateMax(old_max, relation)
 
         if(active && category === 'total') {
-            relation['total'].current = relation['total'].current + relation[category].original
+            relation['total'].current = relations.calculateTotal(relation)
         }
         else if(active) {
             relation['total'].current = relation['total'].current + relation[category].current
@@ -133,7 +134,7 @@ function toggleActive(category, active) {
 }
 
 function transformCallback(e) {
-    transforms[e.target.value](relations.getRelations())
+    transforms[e.target.value](relations.getRelations(), relations.getActive())
 }
 
 
