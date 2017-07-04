@@ -1,6 +1,7 @@
 const config = require('../../config')
 
 const API_URL = config.get('api_url')
+// const API_URL = 'http://127.0.0.1:5000/api/v1/'
 
 function getCities() {
     return fetch(API_URL + 'cities/all').then(response => {

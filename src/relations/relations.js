@@ -9,7 +9,12 @@ const LINE_OPTS = {
 
 const CATEGORIES = config.get('rel_categories')
 const MAX_RELATION_VALUES = {}
+const ACTIVE = CATEGORIES.reduce(function(obj, v) {
+    obj[v] = true;
+    return obj;
+}, {})
 const RELATIONS = {}
+
 
 
 function addInfoWindow(path, cityA, cityB) {
@@ -63,6 +68,18 @@ function calculateMax(max, r) {
     return max
 }
 
+function calculateTotal(r) {
+    let total = 0
+
+    CATEGORIES.forEach((c) => {
+        if(ACTIVE[c]) {
+            total = total + r[c].current
+        }
+    })
+
+    return total
+}
+
 function create(options) {
     if (options.rel.from.id === options.rel.to.id) {
         console.log('should never happen!')
@@ -94,6 +111,10 @@ function createAll(options) {
     })
 
     return RELATIONS
+}
+
+function getActive() {
+    return ACTIVE
 }
 
 function getRelations() {
@@ -131,7 +152,10 @@ function ICRelation(options) {
         flightPath.setVisible(options.markerFrom.getVisible() && options.markerTo.getVisible())
     }
     flightPath.setMap(options.map)
-    flightPath.addListener('click', () => options.click(flightPath.rel))
+    flightPath.addListener('click', () => {
+        console.log(flightPath);
+        options.click(flightPath.rel)
+    })
     addInfoWindow(flightPath, options.rel.from.name, options.rel.to.name)
     addWatcher(flightPath, options.markerFrom, options.markerTo)
     return flightPath
@@ -190,7 +214,9 @@ function updateVisibility(rel_name, value) {
 
 module.exports = {
     calculateMax,
+    calculateTotal,
     createAll,
+    getActive,
     getRelations,
     getRelationMax,
     relationDict,

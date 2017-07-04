@@ -1,11 +1,14 @@
 const config = require('../../config')
+const haversine = require('haversine')
 
 const CATEGORIES = config.get('rel_categories')
 const MAX = {}
 
 
 function calculateGravityModel(relation, category) {
-    return relation.rel[category].original/(relation.rel.from.population*relation.rel.to.population)
+    const distance = relationDistance(relation)
+
+    return (relation.rel[category].original*distance)/Math.min(relation.rel.from.population, relation.rel.to.population)
 }
 
 function calculateOccurence(relation, category) {
@@ -22,53 +25,68 @@ function calculateMax(max, r) {
     return max
 }
 
-function gravityTranform(relations) {
-    transform(calculateGravityModel, relations)
+function calculateRelMinPop(relation, category) {
+    return relation.rel[category].original/Math.min(relation.rel.from.population, relation.rel.to.population)
 }
 
-function occurenceTransform(relations) {
-    transform(calculateOccurence, relations)
+function calculateRelPop(relation, category) {
+    return relation.rel[category].original/(relation.rel.from.population+relation.rel.to.population)
 }
 
-function categoryActiveTransform(relations, category, value) {
-    const max = {}
-    const old_max = {}
+function gravityTranform(relations, active) {
+    transform(calculateGravityModel, relations, active)
+}
 
-    for(let r in relations) {
-        let relation = relations[r].rel
-        calculateMax(old_max, relation)
+function occurenceTransform(relations, active) {
+    transform(calculateOccurence, relations, active)
+}
 
-        if(value) {
-            relation['total'].current = relation['total'].current + relation[category].original
-            relation[category].current = relation[category].original
+function minPopTransform(relations, active) {
+    transform(calculateRelMinPop, relations, active)
+}
 
-        }
-        else {
-            relation['total'].current = relation['total'].current - relation[category].current
-            relation[category].current = 0
-        }
+function popTransform(relations, active) {
+    transform(calculateRelPop, relations, active)
+}
 
-        calculateMax(max, relation)
+function relationDistance(relation) {
+    const start = {
+        latitude: relation.rel.from.lat,
+        longitude: relation.rel.from.lng
     }
 
-    for(let r in relations) {
-        relations[r].setOptions({
-            strokeOpacity: Math.sqrt(relations[r].rel.total.current/max.total)
-        })
+    const finish = {
+        latitude: relation.rel.to.lat,
+        longitude: relation.rel.to.lng
     }
+
+    return haversine(start, finish)
 }
 
-function transform(t, relations) {
+function transform(t, relations, active) {
     const max = {}
 
     for(let r in relations) {
+        let total = 0
         CATEGORIES.forEach((category) => {
-            relations[r].rel[category].current = t(relations[r], category)
+            let tf = t(relations[r], category)
+            if(active[category] && category !== 'total') {
+                total += tf
+            }
+            relations[r].rel[category].current = tf
+
         })
+        relations[r].rel.total.current = total
         calculateMax(max, relations[r].rel)
     }
 
+    console.log('new max:', max.total);
+
     for(let r in relations) {
+        if(relations[r].rel.total.current/max.total === 1) {
+            console.log(relations[r]);
+            console.log('distance: ', relationDistance(relations[r]));
+        }
         relations[r].setOptions({
             strokeOpacity: Math.sqrt(relations[r].rel.total.current/max.total)
         })
@@ -80,7 +98,8 @@ function transformTotal(t, relation) {
 }
 
 module.exports = {
-    activeToggle: categoryActiveTransform,
+    gravity: gravityTranform,
+    minpop: minPopTransform,
     occurence: occurenceTransform,
-    gravity: gravityTranform
+    pop: popTransform
 }

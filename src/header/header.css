@@ -1,7 +1,9 @@
 .header--page {
     border-bottom: 10px solid #0077a4;
     height: 55px;
-    background-color: #00a6d6;
+    background:
+        url(/img/hb.svg) no-repeat left/50%,
+        linear-gradient(to right, #00a6d6, #fff);
     color: white;
 }
 

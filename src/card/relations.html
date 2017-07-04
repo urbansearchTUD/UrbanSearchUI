@@ -1,7 +1,9 @@
-{% for relation, max in relations %}
-<form oninput={{ relation + "output.value=" + relation + "input.value"}}>
-    <input type="checkbox" name="active" value={{relation}} checked data-category-active>{{ relation | capitalize }}
-    <output class="slider--value" for={{ relation + "input" }} name={{ relation + "output" }}>0</output>
-    <input id={{ relation + "input" }} class='slider--relation' name={{relation}} type="range" min="0" max={{max}} value="0">
-</form>
-{% endfor %}
+<div>
+    {% for relation, max in relations %}
+    <form oninput={{ relation + "output.value=" + relation + "input.value"}}>
+        <input type="checkbox" name="active" value={{relation}} checked data-category-active>{{ relation | capitalize }}
+        <output class="slider--value" for={{ relation + "input" }} name={{ relation + "output" }}>0</output>
+        <input id={{ relation + "input" }} class='slider--relation' name={{relation}} type="range" min="0" max={{max}} value="0">
+    </form>
+    {% endfor %}
+</div>
