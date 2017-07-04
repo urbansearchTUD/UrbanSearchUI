@@ -3,7 +3,7 @@
     height: 55px;
     background:
         url(/img/hb.svg) no-repeat left/50%,
-        linear-gradient(to right, #00a6d6, #fff);
+        #00a6d6;
     color: white;
 }
 
