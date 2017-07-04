@@ -152,10 +152,7 @@ function ICRelation(options) {
         flightPath.setVisible(options.markerFrom.getVisible() && options.markerTo.getVisible())
     }
     flightPath.setMap(options.map)
-    flightPath.addListener('click', () => {
-        console.log(flightPath);
-        options.click(flightPath.rel)
-    })
+    flightPath.addListener('click', () => options.click(flightPath.rel))
     addInfoWindow(flightPath, options.rel.from.name, options.rel.to.name)
     addWatcher(flightPath, options.markerFrom, options.markerTo)
     return flightPath

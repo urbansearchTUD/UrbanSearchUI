@@ -39,7 +39,6 @@ function popSliderUpdate(range) {
 }
 
 function relationClick(relation) {
-    console.log(relation);
     const html = infocard.relationInfo(relation, {})
 
     html.querySelector('[data-documentget-button]').addEventListener('click', (e) => {

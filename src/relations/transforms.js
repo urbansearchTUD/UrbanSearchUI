@@ -80,13 +80,7 @@ function transform(t, relations, active) {
         calculateMax(max, relations[r].rel)
     }
 
-    console.log('new max:', max.total);
-
     for(let r in relations) {
-        if(relations[r].rel.total.current/max.total === 1) {
-            console.log(relations[r]);
-            console.log('distance: ', relationDistance(relations[r]));
-        }
         relations[r].setOptions({
             strokeOpacity: Math.sqrt(relations[r].rel.total.current/max.total)
         })
