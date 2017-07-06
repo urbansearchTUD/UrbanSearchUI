@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="manifest" href="/manifest.json">
+        <link rel="shortcut icon" type="image/png" href="/img/favicon.png"/>
+        <meta name="theme-color"  content="#00a6d6">
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
         <title>{% block title %}Title{% endblock %}</title>
         {% block stylesheets %}
@@ -11,10 +14,18 @@
 
     <body>
         <header class="header--page">
-            <h1 onclick="window.location='/'">Urban<span>Search</span></h1>
+            <h1 onclick="window.location='/'">Urban<span>Search</span></h1><img class="header__nav_toggle" src="/img/nav.svg" alt="nav toggle" data-nav-toggle>
             <img class="header--page__img" src="/img/tu-delft.svg" alt="TU Delft logo">
+            <ul class="header__nav" data-nav>
+                <li onclick="window.location='/'">Home</li>
+                <li onclick="window.location='/classification'">Classification</li>
+                <li onclick="window.location='/classifier'">Classifier</li>
+            </ul>
         </header>
-        <main>{% block main %}{% endblock %}</main>
+        <main>
+
+            {% block main %}{% endblock %}
+        </main>
         {% block sections %}{% endblock %}
         {% block scripts %}{% endblock %}
     </body>

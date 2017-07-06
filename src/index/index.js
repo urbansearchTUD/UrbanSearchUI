@@ -1,22 +1,25 @@
-const map = require('../map/map')
-const markers = require('../markers/markers')
 const card = require('../card/card')
 const controlcard = require('../card/control')
+const exporter = require('../export/export')
+const header = require('../header/header')
 const infocard = require('../card/info')
-const slider = require('../slider/slider')
+const map = require('../map/map')
+const markers = require('../markers/markers')
 const neo4jutils = require('../neo4j_utils/neo4j_utils')
 const relations = require('../relations/relations')
 const relDocs = require('../relations/documents')
+const sidemenu = require('../sidemenu/sidemenu')
+const slider = require('../slider/slider')
 const transforms = require('../relations/transforms')
-const exporter = require('../export/export')
 
 // Module constants
 const googleMap = map.initMap('map')
 var MARKERS = null
-
+var WORKER = null
 // Page elements
 const LOADER_RELATIONS = document.querySelector('[data-loader-relations]')
 const LOADER_RELDOCS = document.querySelector('[data-loader-reldocs]')
+const MAP_DIV = document.querySelector('#map')
 const RELATIONS_ACTIVE = relations.relationDict(true)
 const SIDEMENU = document.querySelector('[data-sidemenu]')
 
@@ -46,6 +49,7 @@ function relationClick(relation) {
     })
 
     const card = html.querySelector('.card--control__content')
+    scrollSidemenuTop()
     SIDEMENU.insertBefore(html, SIDEMENU.firstChild)
 
     setTimeout(() => {
@@ -136,9 +140,11 @@ function transformCallback(e) {
     transforms[e.target.value](relations.getRelations(), relations.getActive())
 }
 
-
+sidemenu.init(SIDEMENU, MAP_DIV)
+header.init()
 neo4jutils.getCities()
 .then(cities => {
+    console.log(cities.length);
     MARKERS = markers.createAll({
         'map': googleMap,
         'cities': cities,
@@ -165,6 +171,7 @@ neo4jutils.getCities()
     return neo4jutils.getICRelations()
 })
 .then(icRels => {
+    console.log(icRels.length);
     loaderRelations(false)
     const rels = relations.createAll({
         'map': googleMap,
@@ -183,5 +190,6 @@ neo4jutils.getCities()
     })
 })
 .catch((err) => {
+    loaderRelations(false)
     console.log(err)
 })

@@ -15,11 +15,15 @@
 {% endblock %}
 
 {% block main %}
-    <div id="map"></div>
+    <div id="map" class="full"></div>
     {% include 'loaders/relations.html' %}
 {% endblock %}
 
 {% block sections %}
+    <button class="sidemenu__menu-toggle closed" type="button" name="button" data-menu-toggle>
+        <img src="/img/menu.svg" alt="toggle button">
+        <!-- <img class="icon icons8-Menu" width="48" height="48" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAp0lEQVRoQ+2WQQqAMAwE2/8/Ws8FYQ/JVLKs57iYmRCz1/BnD//+lQb+NhgDMVAkkBEqAiy/bmngKWNhAw7oXwbSACvgvB4sDcAAe+Mtt1AvIjgtBmDAMj4GJCK4wNJATombU2N5SowfIXgCeuMtt1AvIjgtBmDAMj4GJCK4wNLA+B9ZGrg59pbHHAywN95yC/UigtNiAAYs42NAIoILYgAGLOPHG3gBVmgMMZu6MsgAAAAASUVORK5CYII="> -->
+    </button>
     {% include 'sidemenu/sidemenu.html' %}
 {% endblock %}
 

@@ -3,3 +3,15 @@
     height: 100%;
     margin-left: 350px;
 }
+
+#map.full {
+    width: 100%;
+    margin-left: 0px;
+}
+
+@media screen and (max-width: 480px) {
+    #map {
+        width: 20vw;
+        margin-left: 80vw;
+    }
+}

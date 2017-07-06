@@ -4,7 +4,7 @@
   "description": "This repository contains the code for the front end of the UrbanSearch Project",
   "main": "app.js",
   "scripts": {
-    "build": "npm run build:css && npm run build:js && npm run build:templates && npm run build:data && npm run build:static",
+    "build": "npm-run-all --sequential build:*",
     "build:css": "node ./tasks/css.js",
     "build:data": "rimraf .dist/data/ && node ./tasks/data.js",
     "build:js": "webpack",

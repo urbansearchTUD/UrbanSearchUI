@@ -4,7 +4,7 @@
     overflow: hidden;
     margin: auto;
     background-color: #fff;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 2px 3px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.24);
     transition: all 0.3s cubic-bezier(.25,.8,.25,1);
     box-sizing: border-box;
     padding: 15px;
@@ -124,4 +124,25 @@
 
 .controls--form__api_buttons {
     display: flex;
+}
+
+
+@media screen and (max-width: 980px) {
+    .button--category {
+        width: 76%;
+        align-self: center;
+        padding: 16px 0;
+        line-height: 0;
+    }
+
+    .button_list--categories {
+        flex-wrap: nowrap;
+        overflow: auto;
+    }
+
+    .controls--form__api_buttons {
+        flex-direction: column;
+        justify-content: space-around;
+    }
+
 }

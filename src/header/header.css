@@ -9,11 +9,11 @@
 
 .header--page h1 {
     margin: 0;
-    padding: 3px 0 0 7px;
+    padding: 25px 0 0 7px;
     display: inline-block;
     cursor: pointer;
     font-family: arial;
-    line-height: 72px;
+    line-height: 29px;
     font-size: 30px;
 }
 
@@ -27,4 +27,46 @@
     position: absolute;
     top: 5px;
     right: 10px;
+}
+
+.header__nav {
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+    list-style: none;
+    opacity: 0;
+    color: black;
+    transition: all 0.45s cubic-bezier(.25,.8,.25,1);
+    top: 65px;
+    margin: 0;
+    height: 0px;
+    line-height: 7px;
+    box-sizing: border-box;
+    padding: 5px 0 0 40px;
+}
+
+.header__nav.open {
+    opacity: 1;
+    height: 30px;
+    line-height: 30px;
+}
+
+.header__nav li {
+    float: left;
+    margin-right: 23px;
+    font-size: 16px;
+    color: #D81B60;
+    cursor: pointer;
+}
+
+.header__nav_toggle {
+    position: relative;
+    top: 3px;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: all 0.45s cubic-bezier(.25,.8,.25,1);
+}
+
+.header__nav_toggle.open {
+    transform: rotateX(-180deg);
 }

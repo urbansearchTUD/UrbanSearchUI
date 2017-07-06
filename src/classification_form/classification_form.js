@@ -1,4 +1,5 @@
 const config = require('../../config')
+const header = require('../header/header')
 
 // const API_BASE_URL = 'http://127.0.0.1:5000/api/v1'
 const API_BASE_URL = config.get('api_url')
@@ -43,6 +44,7 @@ function getDocument() {
 }
 
 function init(form) {
+    header.init()
     initElements(form)
     refreshArticle()
 
@@ -53,11 +55,13 @@ function init(form) {
     form.onsubmit = (e) => {
         e.preventDefault();
         submit(e.target)
+        EL.pre.scrollTop = 0
     }
 
     EL.discard.onclick = (e) => {
         resetCategoryButtons()
         refreshArticle()
+        EL.pre.scrollTop = 0
     }
 
 

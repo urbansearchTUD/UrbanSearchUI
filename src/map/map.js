@@ -6,7 +6,14 @@ const MAP_OPTIONS = {
     styles: require('./styles'),
     mapTypeControl: false,
     streetViewControl: false,
-    fullscreenControl: false
+    fullscreenControl: true,
+    fullscreenControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_CENTER
+    },
+    zoomControl: true,
+    zoomControlOptions: {
+        position: google.maps.ControlPosition.RIGHT_CENTER
+    }
 }
 
 function initMap(div_id) {
