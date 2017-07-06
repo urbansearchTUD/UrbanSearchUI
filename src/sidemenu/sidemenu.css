@@ -1,11 +1,11 @@
 
 button.sidemenu__menu-toggle {
     position: fixed;
-    left: 355px;
+    left: 360px;
     top: 105px;
     width: 50px;
     height: 50px;
-    background: rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.5);
     border: 0;
     border-radius: 50%;
     z-index: 1;

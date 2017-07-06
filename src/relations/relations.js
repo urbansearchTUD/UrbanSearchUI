@@ -94,35 +94,22 @@ function createAll(options) {
     options.relations.forEach(rel => {
         updateRelationMax(rel)
     })
-    let total = 0
 
     options.relations.forEach(rel => {
         let from = options.markers[rel.from.id]
         let to = options.markers[rel.to.id]
         let rel_id = crypto.uuidv4()
 
-        if(!RELATIONS[rel_id]) {
-            RELATIONS[rel_id] = create({
-                'map': options.map,
-                'click': options.click,
-                'markerFrom': from,
-                'markerTo': to,
-                'rel': rel,
-                'relID': rel_id,
-                'visible': options.visible
-            })
-            total += 1
-        } else {
-            console.log('SAME');
-            console.log(rel_id);
-            console.log(rel);
-            console.log(RELATIONS[rel_id]);
-        }
-
-
+        RELATIONS[rel_id] = create({
+            'map': options.map,
+            'click': options.click,
+            'markerFrom': from,
+            'markerTo': to,
+            'rel': rel,
+            'relID': rel_id,
+            'visible': options.visible
+        })
     })
-
-    console.log(total);
 
     return RELATIONS
 }

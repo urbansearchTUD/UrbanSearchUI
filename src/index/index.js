@@ -15,7 +15,7 @@ const transforms = require('../relations/transforms')
 // Module constants
 const googleMap = map.initMap('map')
 var MARKERS = null
-var WORKER = null
+
 // Page elements
 const LOADER_RELATIONS = document.querySelector('[data-loader-relations]')
 const LOADER_RELDOCS = document.querySelector('[data-loader-reldocs]')
@@ -144,7 +144,6 @@ sidemenu.init(SIDEMENU, MAP_DIV)
 header.init()
 neo4jutils.getCities()
 .then(cities => {
-    console.log(cities.length);
     MARKERS = markers.createAll({
         'map': googleMap,
         'cities': cities,
@@ -171,8 +170,6 @@ neo4jutils.getCities()
     return neo4jutils.getICRelations()
 })
 .then(icRels => {
-    console.log(icRels.length);
-    loaderRelations(false)
     const rels = relations.createAll({
         'map': googleMap,
         'markers': MARKERS,
