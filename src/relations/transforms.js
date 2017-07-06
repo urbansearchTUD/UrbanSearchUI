@@ -7,7 +7,7 @@ const MAX = {}
 
 function calculateGravityModel(relation, category) {
     const distance = relationDistance(relation)
-
+    
     return (relation.rel[category].original*distance)/(relation.rel.to.population+relation.rel.from.population)
 }
 
@@ -68,7 +68,6 @@ function transform(t, relations, active) {
     let count = 0
 
     for(let r in relations) {
-        count += 1
         let total = 0
         CATEGORIES.forEach((category) => {
             let tf = t(relations[r], category)
@@ -81,8 +80,7 @@ function transform(t, relations, active) {
         relations[r].rel.total.current = total
         calculateMax(max, relations[r].rel)
     }
-    console.log(count);
-
+  
     for(let r in relations) {
         if(relations[r].rel.total.current/max.total === 1) {
             console.log(relations[r]);
