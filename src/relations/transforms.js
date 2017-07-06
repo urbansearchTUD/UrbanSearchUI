@@ -7,7 +7,7 @@ const MAX = {}
 
 function calculateGravityModel(relation, category) {
     const distance = relationDistance(relation)
-
+    
     return (relation.rel[category].original*distance)/(relation.rel.to.population+relation.rel.from.population)
 }
 
